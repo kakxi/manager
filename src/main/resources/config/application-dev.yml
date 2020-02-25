@@ -1,0 +1,19 @@
+
+server.port: 8191
+
+############################################################
+#
+#主数据源配制
+#
+############################################################
+spring.datasource.mysql.jdbc-url: jdbc:mysql://localhost:3306/manager?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+spring.datasource.mysql.username: root
+spring.datasource.mysql.password: root
+spring.datasource.mysql.driver-class-name: com.mysql.jdbc.Driver
+spring.datasource.mysql.druid.initial-size: 1
+spring.datasource.mysql.druid.min-idle: 1
+spring.datasource.mysql.druid.max-active: 20
+spring.datasource.mysql.druid.test-on-borrow: true
+spring.datasource.mysql.druid.stat-view-servlet.allow: true
+
+

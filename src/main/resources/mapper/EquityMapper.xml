@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xft.abscloud.manager.mapper.EquityMapper" >
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.Equity" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="equity_id" property="equityId" jdbcType="INTEGER" />
+    <result column="equity_code" property="equityCode" jdbcType="VARCHAR" />
+    <result column="equity_name" property="equityName" jdbcType="VARCHAR" />
+    <result column="equity_desc" property="equityDesc" jdbcType="VARCHAR" />
+    <result column="equity_type" property="equityType" jdbcType="VARCHAR" />
+    <result column="equity_prop" property="equityProp" jdbcType="VARCHAR" />
+    <result column="counter" property="counter" jdbcType="TINYINT" />
+    <result column="perm_code" property="permCode" jdbcType="VARCHAR" />
+    <result column="spend_code" property="spendCode" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="create_user" property="createUser" jdbcType="TIME" />
+    <result column="create_time" property="createTime" jdbcType="TIME" />
+  </resultMap>
+
+  <!-- 新增 -->
+  <insert id="add" parameterType="xft.abscloud.manager.pojo.Equity" useGeneratedKeys="true" keyColumn="equity_id" keyProperty="equityId">
+    insert into abs_equity(equity_code,equity_name,equity_desc,equity_type,equity_prop,
+       counter,perm_code,spend_code,state,create_user,create_time
+    )
+    values(
+        #{equityCode},#{equityName},#{equityDesc},#{equityType},#{equityProp},
+        #{counter},#{permCode},#{spendCode},#{state},#{createUser},#{createTime}
+    )
+  </insert>
+
+  <!-- 更新 -->
+  <update id="update" parameterType="xft.abscloud.manager.pojo.Equity">
+    update abs_equity set equity_code=#{equityCode},equity_name=#{equityName},equity_desc=#{equityDesc},
+      equity_type=#{equityType},equity_prop=#{equityProp},counter=#{counter},
+      perm_code=#{permCode},spend_code=#{spendCode},state=#{state}
+    where equity_id = #{equityId}
+  </update>
+
+  <!-- 条件查询 -->
+  <select id="queryList" parameterType="xft.abscloud.manager.pojo.Equity" resultMap="BaseResultMap">
+    select * from abs_equity
+    <where>
+      <if test="equityCode != null and equityCode!=''">
+        AND equity_code like '%${equityCode}%'
+      </if>
+      <if test="equityName != null and equityName!=''">
+        AND equity_name like '%${equityName}%'
+      </if>
+      <if test="equityType != null and equityType!=''">
+        AND equity_type  = #{equityType}
+      </if>
+      <if test="equityProp != null and equityProp!=''">
+        AND equity_prop  = #{equityProp}
+      </if>
+      <if test="permCode != null and permCode!=''">
+        AND perm_code  = #{permCode}
+      </if>
+      <if test="spendCode != null and spendCode!=''">
+        AND spend_code  = #{spendCode}
+      </if>
+      <if test="state != null and state!=''">
+        AND state  = #{state}
+      </if>
+    </where>
+    order by equity_type,create_time asc
+  </select>
+
+  <select id="queryByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from abs_equity where spend_code =#{spendCode}
+  </select>
+
+  <select id="queryByCodeAndId" resultMap="BaseResultMap">
+    select * from abs_equity where equity_id !=#{equityId} and spend_code =#{spendCode}
+  </select>
+
+</mapper>
