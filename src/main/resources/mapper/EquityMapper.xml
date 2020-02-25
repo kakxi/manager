@@ -75,5 +75,4 @@
     select * from abs_equity where equity_id !=#{equityId} and spend_code =#{spendCode}
   </select>
 
-  
 </mapper>

@@ -12,4 +12,29 @@
     <result column="order" property="order" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIME" />
   </resultMap>
+
+  <!-- 新增 -->
+  <insert id="add" parameterType="xft.abscloud.manager.pojo.LevelEquity" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into abs_level_equity(
+        level_id,equity_id,usage_counter,`order`,create_time
+    )
+    values(
+      #{levelId},#{equityId},#{usageCounter},#{order},#{createTime}
+    )
+  </insert>
+
+  <!-- 更新 -->
+  <update id="update" parameterType="xft.abscloud.manager.pojo.LevelEquity">
+    update abs_level_equity set level_id =#{levelId},equity_id =#{equityId},
+      usage_counter =#{usageCounter},`order` =#{order}
+    where id = #{id}
+  </update>
+
+  <!-- 根据会员等级查询 -->
+  <select id="queryListByLevel" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from abs_level_equity
+    where level_id =#{levelId}
+    order by `order` asc
+  </select>
+
 </mapper>
