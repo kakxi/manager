@@ -1,5 +1,6 @@
 package xft.abscloud.manager.service.equity;
 
+import com.github.pagehelper.PageInfo;
 import xft.abscloud.manager.pojo.Equity;
 
 import java.util.List;
@@ -10,9 +11,11 @@ public interface EquityService {
 
     int update(Equity equity);
 
-    List<Equity> queryList(Equity equity);
+    int delete(Integer equityId);
 
-    Equity queryByCode(String spendCode);
+    Equity query(Integer equityId);
 
-    Equity queryByCodeAndId(Integer equityId,String spendCode);
+    PageInfo<Equity> queryPage(Equity equity, int pageNum, int pageSize);
+
+    List<Equity> queryAll();
 }

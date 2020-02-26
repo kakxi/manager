@@ -80,7 +80,7 @@ public class Event {
      * 创建人
      */
     @Column(name = "create_user")
-    private Date createUser;
+    private String createUser;
 
     /**
      * 创建时间
@@ -315,7 +315,7 @@ public class Event {
      *
      * @return create_user - 创建人
      */
-    public Date getCreateUser() {
+    public String getCreateUser() {
         return createUser;
     }
 
@@ -324,7 +324,7 @@ public class Event {
      *
      * @param createUser 创建人
      */
-    public void setCreateUser(Date createUser) {
+    public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 

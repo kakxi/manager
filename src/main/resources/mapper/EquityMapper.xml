@@ -15,7 +15,7 @@
     <result column="perm_code" property="permCode" jdbcType="VARCHAR" />
     <result column="spend_code" property="spendCode" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="CHAR" />
-    <result column="create_user" property="createUser" jdbcType="TIME" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIME" />
   </resultMap>
 
@@ -68,11 +68,11 @@
   </select>
 
   <select id="queryByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from abs_equity where spend_code =#{spendCode}
+    select * from abs_equity where equity_code =#{equityCode}
   </select>
 
   <select id="queryByCodeAndId" resultMap="BaseResultMap">
-    select * from abs_equity where equity_id !=#{equityId} and spend_code =#{spendCode}
+    select * from abs_equity where equity_id !=#{equityId} and equity_code =#{equityCode}
   </select>
 
 </mapper>

@@ -68,7 +68,7 @@ public class Equity {
      * 创建人
      */
     @Column(name = "create_user")
-    private Date createUser;
+    private String createUser;
 
     /**
      * 创建时间
@@ -261,7 +261,7 @@ public class Equity {
      *
      * @return create_user - 创建人
      */
-    public Date getCreateUser() {
+    public String getCreateUser() {
         return createUser;
     }
 
@@ -270,7 +270,7 @@ public class Equity {
      *
      * @param createUser 创建人
      */
-    public void setCreateUser(Date createUser) {
+    public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 

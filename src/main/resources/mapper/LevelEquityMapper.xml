@@ -13,28 +13,48 @@
     <result column="create_time" property="createTime" jdbcType="TIME" />
   </resultMap>
 
-  <!-- 新增 -->
-  <insert id="add" parameterType="xft.abscloud.manager.pojo.LevelEquity" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  <!-- 批量插入 -->
+  <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
     insert into abs_level_equity(
-        level_id,equity_id,usage_counter,`order`,create_time
+      level_id,equity_id,usage_counter,`order`,create_time
     )
-    values(
-      #{levelId},#{equityId},#{usageCounter},#{order},#{createTime}
-    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.levelId},
+      #{item.equityId},
+      #{item.usageCounter},
+      #{item.order},
+      sysdate()
+      )
+    </foreach>
   </insert>
 
-  <!-- 更新 -->
-  <update id="update" parameterType="xft.abscloud.manager.pojo.LevelEquity">
-    update abs_level_equity set level_id =#{levelId},equity_id =#{equityId},
-      usage_counter =#{usageCounter},`order` =#{order}
-    where id = #{id}
-  </update>
-
   <!-- 根据会员等级查询 -->
-  <select id="queryListByLevel" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from abs_level_equity
+  <select id="queryEquityList" parameterType="java.lang.String" resultType="java.util.Map">
+    select
+      l.id as id,
+      l.level_id as levelId,
+      l.equity_id as equityId,
+      l.usage_counter as usageCounter,
+      l.order as `order`,
+      l.create_time as createTime,
+      e.equity_code as equityCode,
+      e.equity_name as equityName,
+      e.equity_desc as equityDesc,
+      e.equity_type as equityType,
+      e.equity_prop as equityProp,
+      e.perm_code as permCode,
+      e.spend_code as spendCode
+      from abs_level_equity l
+      left join abs_equity e on l.equity_id = e.equity_id
     where level_id =#{levelId}
-    order by `order` asc
+    order by l.order asc
   </select>
+
+  <delete id="deleteByLevelId" parameterType="java.lang.Integer">
+    delete from abs_level_equity
+      where level_id =#{levelId}
+  </delete>
 
 </mapper>

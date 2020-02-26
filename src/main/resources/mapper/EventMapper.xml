@@ -17,7 +17,7 @@
     <result column="need_equity" property="needEquity" jdbcType="CHAR" />
     <result column="spend_code" property="spendCode" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
-    <result column="create_user" property="createUser" jdbcType="TIME" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIME" />
     <result column="event_desc" property="eventDesc" jdbcType="LONGVARCHAR" />
   </resultMap>
