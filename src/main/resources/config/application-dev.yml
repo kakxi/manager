@@ -6,9 +6,9 @@ server.port: 8191
 #主数据源配制
 #
 ############################################################
-spring.datasource.mysql.jdbc-url: jdbc:mysql://localhost:3306/manager?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-spring.datasource.mysql.username: root
-spring.datasource.mysql.password: root
+spring.datasource.mysql.jdbc-url: jdbc:mysql://57568d2a4e4d9.gz.cdb.myqcloud.com:4314/abs_member?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+spring.datasource.mysql.username: xfintechweb
+spring.datasource.mysql.password: f!1NSYCH
 spring.datasource.mysql.driver-class-name: com.mysql.jdbc.Driver
 spring.datasource.mysql.druid.initial-size: 1
 spring.datasource.mysql.druid.min-idle: 1
