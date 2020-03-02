@@ -13,9 +13,9 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/manager"
-                        userId="root"
-                        password="root">
+                        connectionURL="jdbc:mysql://57568d2a4e4d9.gz.cdb.myqcloud.com:4314/abs_member"
+                        userId="xfintechweb"
+                        password="f!1NSYCH">
         </jdbcConnection>
 
         <!-- 对于生成的pojo所在包 -->
@@ -29,12 +29,7 @@
                              type="XMLMAPPER"/>
 
 
-        <table tableName="abs_equity"></table>
-        <table tableName="abs_level_equity"></table>
-        <table tableName="abs_member_equity"></table>
-        <table tableName="abs_event"></table>
-        <table tableName="abs_equity_spend"></table>
-        <table tableName="abs_event_signin"></table>
+        <table tableName="enterpr_reg_user"></table>
 
     </context>
 </generatorConfiguration>
