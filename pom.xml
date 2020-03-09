@@ -152,8 +152,8 @@
 			<groupId>org.csource</groupId>
 			<artifactId>fastdfs-client-java</artifactId>
 			<version>1.27</version>
-			<!-- <scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/fastdfs-client-java-1.27.jar</systemPath> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/fastdfs-client-java-1.27.jar</systemPath>
 		</dependency>
 	</dependencies>
 
