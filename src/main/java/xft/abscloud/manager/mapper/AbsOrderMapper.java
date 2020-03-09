@@ -3,12 +3,10 @@ package xft.abscloud.manager.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import xft.abscloud.manager.generator.MyMapper;
 import xft.abscloud.manager.pojo.AbsOrder;
 
-@Repository
 public interface AbsOrderMapper extends MyMapper<AbsOrder>{
 
 	/**
