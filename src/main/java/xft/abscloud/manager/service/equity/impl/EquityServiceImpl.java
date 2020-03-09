@@ -25,7 +25,7 @@ public class EquityServiceImpl implements EquityService {
         if (old != null) {
             throw new BusinessException("系统中已存在相同编码的权益");
         }
-        equity.setState("1");
+//        equity.setState("1");
         equity.setCreateTime(new Date());
         return equityMapper.add(equity);
     }

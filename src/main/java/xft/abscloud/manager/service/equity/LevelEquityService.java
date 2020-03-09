@@ -7,9 +7,9 @@ import java.util.Map;
 
 public interface LevelEquityService {
 
-    int save(Integer levelId, List<LevelEquity> list);
+    int save(String levelId, List<LevelEquity> list);
 
-    List<Map<String, Object>> query(Integer levelId);
+    List<Map<String, Object>> query(String levelId);
 
-    int delete(Integer levelId);
+    int delete(String levelId);
 }

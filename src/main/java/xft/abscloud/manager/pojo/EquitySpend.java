@@ -21,13 +21,13 @@ public class EquitySpend {
      * 活动id
      */
     @Column(name = "event_id")
-    private String eventId;
+    private Integer eventId;
 
     /**
      * 权益id
      */
     @Column(name = "equity_id")
-    private String equityId;
+    private Integer equityId;
 
     /**
      * 权益名称
@@ -93,7 +93,7 @@ public class EquitySpend {
      *
      * @return event_id - 活动id
      */
-    public String getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
@@ -102,7 +102,7 @@ public class EquitySpend {
      *
      * @param eventId 活动id
      */
-    public void setEventId(String eventId) {
+    public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
 
@@ -111,7 +111,7 @@ public class EquitySpend {
      *
      * @return equity_id - 权益id
      */
-    public String getEquityId() {
+    public Integer getEquityId() {
         return equityId;
     }
 
@@ -120,7 +120,7 @@ public class EquitySpend {
      *
      * @param equityId 权益id
      */
-    public void setEquityId(String equityId) {
+    public void setEquityId(Integer equityId) {
         this.equityId = equityId;
     }
 

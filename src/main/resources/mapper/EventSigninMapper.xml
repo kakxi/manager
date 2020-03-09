@@ -7,7 +7,42 @@
     -->
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="member_id" property="memberId" jdbcType="VARCHAR" />
-    <result column="event_id" property="eventId" jdbcType="VARCHAR" />
+    <result column="event_id" property="eventId" jdbcType="INTEGER" />
     <result column="signin_time" property="signinTime" jdbcType="TIME" />
   </resultMap>
+
+  <!-- 新增 -->
+  <insert id="add" parameterType="xft.abscloud.manager.pojo.EventSignin" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into abs_event_signin(
+      member_id,event_id,signin_time
+    )
+    values(
+      #{memberId},#{eventId},sysdate()
+    )
+  </insert>
+
+  <select id="queryListByEventId" parameterType="java.lang.String" resultType="java.util.Map">
+    select
+      s.id as signinId,
+      s.member_id as memberId,
+      u.account_name as accountName,
+      s.event_id as eventId,
+      s.signin_time as signinTime
+    from abs_event_signin s
+    left join abs_member_user u on u.id = s.member_id
+    where event_id = #{eventId}
+  </select>
+
+  <select id="queryListByMemberId" parameterType="java.lang.String" resultType="java.util.Map">
+    select
+      s.id as signinId,
+      s.member_id as memberId,
+      s.event_id as eventId,
+      e.event_name as eventName,
+      s.signin_time as signinTime
+    from abs_event_signin s
+    left join abs_event e on s.event_id = e.id
+    where member_id = #{memberId}
+  </select>
+
 </mapper>

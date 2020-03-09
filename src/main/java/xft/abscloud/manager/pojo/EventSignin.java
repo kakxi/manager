@@ -21,7 +21,7 @@ public class EventSignin {
      * 活动id
      */
     @Column(name = "event_id")
-    private String eventId;
+    private Integer eventId;
 
     /**
      * 签到时间
@@ -70,7 +70,7 @@ public class EventSignin {
      *
      * @return event_id - 活动id
      */
-    public String getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
@@ -79,7 +79,7 @@ public class EventSignin {
      *
      * @param eventId 活动id
      */
-    public void setEventId(String eventId) {
+    public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
 

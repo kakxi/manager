@@ -12,7 +12,7 @@ public interface LevelEquityMapper extends MyMapper<LevelEquity> {
 
     int insertForeach(List<LevelEquity> list);
 
-    List<Map<String,Object>> queryEquityList(Integer levelId);
+    List<Map<String,Object>> queryEquityList(String levelId);
 
-    int deleteByLevelId(Integer levelId);
+    int deleteByLevelId(String levelId);
 }

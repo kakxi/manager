@@ -1,5 +1,8 @@
 package xft.abscloud.manager.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -93,6 +96,16 @@ public class Event {
      */
     @Column(name = "event_desc")
     private String eventDesc;
+
+    @Getter
+    @Setter
+    @Transient
+    private String eventDateStart;
+
+    @Getter
+    @Setter
+    @Transient
+    private String eventDateEnd;
 
     /**
      * 获取主键

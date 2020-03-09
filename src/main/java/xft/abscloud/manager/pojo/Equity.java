@@ -45,7 +45,7 @@ public class Equity {
     /**
      * 默认次数
      */
-    private Byte counter;
+    private Integer counter;
 
     /**
      * 权限控制标识
@@ -189,7 +189,7 @@ public class Equity {
      *
      * @return counter - 默认次数
      */
-    public Byte getCounter() {
+    public Integer getCounter() {
         return counter;
     }
 
@@ -198,7 +198,7 @@ public class Equity {
      *
      * @param counter 默认次数
      */
-    public void setCounter(Byte counter) {
+    public void setCounter(Integer counter) {
         this.counter = counter;
     }
 

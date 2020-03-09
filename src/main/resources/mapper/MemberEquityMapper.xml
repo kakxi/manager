@@ -20,4 +20,91 @@
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIME" />
   </resultMap>
+
+  <!-- 新增 -->
+  <insert id="add" parameterType="xft.abscloud.manager.pojo.MemberEquity" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into abs_member_equity(member_id,equity_code,equity_name,equity_desc,
+      equity_type,equity_prop,usage_counter,
+      balance_counter,perm_code,spend_code,`order`,create_user,create_time
+    )
+    values(
+      #{memberId},#{equityCode},#{equityName},#{equityDesc},
+      #{equityType},#{equityProp},#{usageCounter},
+      #{balanceCounter},#{permCode},#{spendCode},#{order},#{createUser},sysdate()
+    )
+  </insert>
+
+  <!-- 更新 -->
+  <update id="update" parameterType="xft.abscloud.manager.pojo.MemberEquity">
+    update abs_member_equity set equity_code =#{equityCode},equity_name =#{equityName},
+    equity_desc =#{equityDesc},equity_type =#{equityType},equity_prop =#{equityProp},
+    usage_counter =#{usageCounter},balance_counter =#{balanceCounter},perm_code =#{permCode},
+    spend_code =#{spendCode},`order` =#{order}
+    where id = #{id}
+  </update>
+
+  <!-- 批量插入 -->
+  <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into abs_member_equity(
+      member_id,equity_code,equity_name,equity_desc,
+      equity_type,equity_prop,usage_counter,
+      balance_counter,perm_code,spend_code,`order`,create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+        #{item.memberId},#{item.equityCode},#{item.equityName},#{item.equityDesc},
+        #{item.equityType},#{item.equityProp},#{item.usageCounter},
+        #{item.balanceCounter},#{item.permCode},#{item.spendCode},#{item.order},sysdate()
+      )
+    </foreach>
+  </insert>
+
+  <!-- 根据会员id查询 -->
+  <select id="queryListByMemberId" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.MemberEquity">
+    select
+      id as id,
+      member_id as memberId,
+      equity_code as equityCode,
+      equity_name as equityName,
+      equity_desc as equityDesc,
+      equity_type as equityType,
+      equity_prop as equityProp,
+      usage_counter as usageCounter,
+      balance_counter as balanceCounter,
+      perm_code as permCode,
+      spend_code as spendCode,
+      `order`,
+      create_user as createUser,
+      create_time as createTime
+    from abs_member_equity
+    where member_id =#{memberId}
+    order by `order` asc
+  </select>
+
+  <select id="query" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from abs_member_equity where id = #{id}
+  </select>
+
+  <select id="queryMemberListBySpendCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select member_id from abs_member_equity where spend_code= #{spendCode} group by member_id
+  </select>
+
+  <!-- 根据会员id和消费标识查询对应的权益信息 -->
+  <select id="queryByMemberIdAndSpendCode" resultMap="BaseResultMap">
+    select * from abs_member_equity where member_id = #{memberId} and spend_code= #{spendCode}
+  </select>
+
+  <!-- 更新消费次数 -->
+  <update id="updateBalanceCounter" >
+    update abs_member_equity set balance_counter = balance_counter + #{count} where id = #{id}
+  </update>
+
+  <!-- 活动取消时，批量更新消费次数 +1 -->
+  <update id="updateBalanceCounterForCancelEvent" >
+    update abs_member_equity e set balance_counter = balance_counter + 1 where e.id in
+      (select s.equity_id from abs_equity_spend s where s.event_id = #{eventId}
+        and s.status = '0' and s.equity_id is not null)
+  </update>
+
 </mapper>

@@ -16,7 +16,7 @@ public class PackDto {
     /**
      * 会员等级id
      */
-    private Integer levelId;
+    private String levelId;
 
     /**
      * 权益列表

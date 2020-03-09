@@ -51,13 +51,13 @@ public class MemberEquity {
      * 使用次数
      */
     @Column(name = "usage_counter")
-    private Byte usageCounter;
+    private Integer usageCounter;
 
     /**
      * 剩余使用次数
      */
     @Column(name = "balance_counter")
-    private Byte balanceCounter;
+    private Integer balanceCounter;
 
     /**
      * 权限控制标识
@@ -219,7 +219,7 @@ public class MemberEquity {
      *
      * @return usage_counter - 使用次数
      */
-    public Byte getUsageCounter() {
+    public Integer getUsageCounter() {
         return usageCounter;
     }
 
@@ -228,7 +228,7 @@ public class MemberEquity {
      *
      * @param usageCounter 使用次数
      */
-    public void setUsageCounter(Byte usageCounter) {
+    public void setUsageCounter(Integer usageCounter) {
         this.usageCounter = usageCounter;
     }
 
@@ -237,7 +237,7 @@ public class MemberEquity {
      *
      * @return balance_counter - 剩余使用次数
      */
-    public Byte getBalanceCounter() {
+    public Integer getBalanceCounter() {
         return balanceCounter;
     }
 
@@ -246,7 +246,7 @@ public class MemberEquity {
      *
      * @param balanceCounter 剩余使用次数
      */
-    public void setBalanceCounter(Byte balanceCounter) {
+    public void setBalanceCounter(Integer balanceCounter) {
         this.balanceCounter = balanceCounter;
     }
 

@@ -48,11 +48,11 @@
       e.spend_code as spendCode
       from abs_level_equity l
       left join abs_equity e on l.equity_id = e.equity_id
-    where level_id =#{levelId}
+    where l.level_id =#{levelId}
     order by l.order asc
   </select>
 
-  <delete id="deleteByLevelId" parameterType="java.lang.Integer">
+  <delete id="deleteByLevelId" parameterType="java.lang.String">
     delete from abs_level_equity
       where level_id =#{levelId}
   </delete>

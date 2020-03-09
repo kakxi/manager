@@ -14,7 +14,7 @@
     <result column="counter" property="counter" jdbcType="TINYINT" />
     <result column="perm_code" property="permCode" jdbcType="VARCHAR" />
     <result column="spend_code" property="spendCode" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIME" />
   </resultMap>

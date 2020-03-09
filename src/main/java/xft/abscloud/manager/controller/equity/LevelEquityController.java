@@ -38,7 +38,7 @@ public class LevelEquityController {
     }
 
     @RequestMapping("/query")
-    public JsonResult query(@RequestParam(value = "levelId", required = true) Integer levelId) throws IOException {
+    public JsonResult query(@RequestParam(value = "levelId", required = true) String levelId) throws IOException {
         try {
             List<Map<String, Object>> result = levelEquityService.query(levelId);
             return JsonResult.ok(result);
@@ -49,7 +49,7 @@ public class LevelEquityController {
     }
 
     @RequestMapping("/delete")
-    public JsonResult delete(@RequestParam(value = "levelId", required = true) Integer levelId) throws IOException {
+    public JsonResult delete(@RequestParam(value = "levelId", required = true) String levelId) throws IOException {
         try {
             int result = levelEquityService.delete(levelId);
             return JsonResult.ok(result);

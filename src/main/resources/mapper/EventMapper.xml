@@ -21,4 +21,72 @@
     <result column="create_time" property="createTime" jdbcType="TIME" />
     <result column="event_desc" property="eventDesc" jdbcType="LONGVARCHAR" />
   </resultMap>
+
+  <!-- 新增 -->
+  <insert id="add" parameterType="xft.abscloud.manager.pojo.Event" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into abs_event(event_name,event_date,event_address,event_desc,event_url,
+      num_limit,num_used,reserve_end_date,cancel_end_date,need_equity,
+      spend_code,status,create_user,create_time
+    )
+    values(
+      #{eventName},#{eventDate},#{eventAddress},#{eventDesc},#{eventUrl},#{numLimit},
+      #{numUsed},#{reserveEndDate},#{cancelEndDate},#{needEquity},
+      #{spendCode},#{status},#{createUser},sysdate()
+    )
+  </insert>
+
+  <!-- 更新 -->
+  <update id="update" parameterType="xft.abscloud.manager.pojo.Event">
+    update abs_event set event_name =#{eventName},event_date =#{eventDate},event_address =#{eventAddress},
+      event_desc =#{eventDesc},event_url =#{eventUrl},num_limit =#{numLimit},
+      num_used =#{numUsed},reserve_end_date =#{reserveEndDate},
+      cancel_end_date =#{cancelEndDate},need_equity =#{needEquity},
+      spend_code =#{spendCode}
+    where id = #{id}
+  </update>
+
+  <!-- 更新：发布状态 -->
+  <update id="updateStatus" parameterType="xft.abscloud.manager.pojo.Event">
+    update abs_event set status =#{status}
+      where id = #{id}
+  </update>
+
+  <!-- 更新：减少已预约人数 -1 -->
+  <update id="reduceNumUsed" parameterType="java.lang.Integer">
+    update abs_event set num_used = num_used -1
+    where id = #{id}
+  </update>
+
+  <!-- 更新：增加已预约人数 +1 -->
+  <update id="increaseNumUsed" parameterType="java.lang.Integer">
+    update abs_event set num_used = num_used +1
+    where id = #{id}
+  </update>
+
+  <!-- 条件查询 -->
+  <select id="queryList" parameterType="xft.abscloud.manager.pojo.Event" resultMap="BaseResultMap">
+    select * from abs_event
+    <where>
+      <if test="eventName != null and eventName!=''">
+        AND event_name like '%${eventName}%'
+      </if>
+      <if test="eventDateStart != null and eventDateStart!=''">
+        AND event_date >= #{eventDateStart}
+      </if>
+      <if test="eventDateEnd != null and eventDateEnd!=''">
+        AND event_date &lt;= #{eventDateEnd}
+      </if>
+      <if test="status != null and status!=''">
+        AND status  = #{status}
+      </if>
+      <if test="needEquity != null and needEquity!=''">
+        AND need_equity  = #{needEquity}
+      </if>
+      <if test="spendCode != null and spendCode!=''">
+        AND spend_code  = #{spendCode}
+      </if>
+    </where>
+    order by event_date desc
+  </select>
+
 </mapper>

@@ -19,19 +19,19 @@ public class LevelEquityServiceImpl implements LevelEquityService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public int save(Integer levelId, List<LevelEquity> list) {
+    public int save(String levelId, List<LevelEquity> list) {
         // 保存套餐之前，先删除原有的
         levelEquityMapper.deleteByLevelId(levelId);
         return levelEquityMapper.insertForeach(list);
     }
 
     @Override
-    public List<Map<String, Object>> query(Integer levelId) {
+    public List<Map<String, Object>> query(String levelId) {
         return levelEquityMapper.queryEquityList(levelId);
     }
 
     @Override
-    public int delete(Integer levelId) {
+    public int delete(String levelId) {
         return levelEquityMapper.deleteByLevelId(levelId);
     }
 }

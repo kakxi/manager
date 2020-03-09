@@ -16,7 +16,7 @@ public interface EquityMapper extends MyMapper<Equity> {
 
     List<Equity> queryList(Equity equity);
 
-    Equity queryByCode(String spendCode);
+    Equity queryByCode(String equityCode);
 
     Equity queryByCodeAndId(@Param("equityId") Integer equityId,@Param("equityCode") String equityCode);
 }
