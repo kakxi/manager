@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xft.abscloud.manager.mapper.AbsVoucherMapper">
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.AbsVoucher">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="voucher_id" jdbcType="INTEGER" property="voucherId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="pay_amount" jdbcType="VARCHAR" property="payAmount" />
+    <result column="transcation_nm" jdbcType="VARCHAR" property="transcationNm" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="pay_time" jdbcType="VARCHAR" property="payTime" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="apply_status" jdbcType="VARCHAR" property="applyStatus" />
+    <result column="audit_opinion" jdbcType="VARCHAR" property="auditOpinion" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  
+  <!-- 线下支付凭证申请 -->
+  <insert id="applyVoucher">
+  	INSERT INTO abs_voucher
+  	(
+  		order_id,
+  		user_id,
+  		pay_amount,
+  		transcation_nm,
+  		goods_name,
+  		pay_time,
+  		file_url,
+  		apply_status,
+  		create_time
+  	)
+  	VALUES
+  	(
+  		#{entity.orderId},
+  		#{entity.userId},
+  		#{entity.payAmount},
+  		#{entity.transcationNm},
+  		#{entity.goodsName},
+  		#{entity.payTime},
+  		#{entity.fileUrl},
+  		#{entity.applyStatus},
+  		#{entity.createTime}
+  	)
+  </insert>
+  
+  <!-- 审核线下支付凭证 -->
+  <update id="applyConsumptionRecord" parameterType="xft.abscloud.manager.pojo.AbsVoucher">
+  	UPDATE abs_voucher SET
+  		apply_status = #{entity.applyStatus},
+  		audit_opinion = #{entity.auditOpinion},
+  		update_time = #{entity.updateTime}
+  	WHERE voucher_id=#{entity.voucherId}
+  </update>
+  
+  <!-- 查询线下消费记录 -->
+  <select id="queryCurrentUserVoucher" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsVoucher">
+	  SELECT 
+	    voucher_id as voucherId,
+	  	order_id as orderId,
+  		user_id as userId,
+  		pay_amount as payAmount,
+  		transcation_nm as transcationNm,
+  		goods_name as goodsName,
+  		pay_time as payTime,
+  		file_url as fileUrl,
+  		apply_status as applyStatus,
+  		audit_opinion as auditOpinion,
+  		create_time as createTime,
+  		update_time as updateTime
+	  FROM abs_voucher
+	  	WHERE 1=1
+		<if test="userId != null and userId !=''">
+	      AND user_id = #{userId}
+	    </if>
+  </select>
+  
+  <!-- 线下消费审核拒绝 -->
+  <update id="applyConsumptionVoucherRefued" parameterType="java.lang.String">
+	UPDATE abs_voucher SET
+		apply_status = #{applyStatus},
+		audit_opinion = #{auditOpinion},
+		update_time = #{updateTime}
+	WHERE voucher_id = #{voucherId}
+  </update>
+  
+  <!-- 修改凭证 -->
+  <update id="editVoucher" parameterType="xft.abscloud.manager.pojo.AbsVoucher">
+  	UPDATE abs_voucher SET
+		apply_status = #{entity.applyStatus},
+		audit_opinion = #{entity.auditOpinion},
+		order_id = #{entity.orderId},
+  		user_id = #{entity.userId},
+  		pay_amount = #{entity.payAmount},
+  		transcation_nm = #{entity.transcationNm},
+  		goods_name = #{entity.goodsName},
+  		pay_time = #{entity.payTime},
+  		file_url = #{entity.fileUrl},
+  		apply_status = #{entity.applyStatus},
+		update_time = #{entity.updateTime}
+	WHERE voucher_id = #{entity.voucherId}
+  </update>
+</mapper>

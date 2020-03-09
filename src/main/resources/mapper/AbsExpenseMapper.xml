@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xft.abscloud.manager.mapper.AbsExpenseMapper">
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.AbsExpense">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="expense_id" jdbcType="INTEGER" property="expenseId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="member_id" jdbcType="VARCHAR" property="memberId" />
+    <result column="m_grade_id" jdbcType="VARCHAR" property="mGradeId" />
+    <result column="member_grade" jdbcType="VARCHAR" property="memberGrade" />
+    <result column="expense_time" jdbcType="VARCHAR" property="expenseTime" />
+    <result column="expense_amount" jdbcType="VARCHAR" property="expenseAmount" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="pay_result" jdbcType="VARCHAR" property="payResult" />
+  </resultMap>
+  
+  <!-- 查询线上消费记录   -->
+  <select id="queryExpenseList" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsExpense">
+  	SELECT 
+  		expense_id as expenseId,
+  		order_id as orderId,
+  		member_id as memberId,
+  		m_grade_id as mGradeId,
+  		member_grade as memberGrade,
+  		expense_time as expenseTime,
+  		expense_amount as expenseAmount,
+  		pay_type as payType,
+  		pay_result as payResult
+  	FROM abs_expense
+  		WHERE 1=1
+	<if test="memberId != null and memberId !=''">
+      AND member_id = #{memberId}
+    </if>
+  </select>
+  
+  <!-- 插入消费记录 -->
+  <insert id="addAbsExpense" parameterType="xft.abscloud.manager.pojo.AbsExpense">
+  	INSERT INTO abs_expense
+  	(
+  		order_id,
+  		member_id,
+  		m_grade_id,
+  		member_grade,
+  		expense_time,
+  		expense_amount,
+  		pay_type,
+  		pay_result
+  	)
+  	VALUES
+  	(
+  		#{entity.orderId},
+  		#{entity.memberId},
+  		#{entity.mGradeId},
+  		#{entity.memberGrade},
+  		#{entity.expenseTime},
+  		#{entity.expenseAmount},
+  		#{entity.payType},
+  		#{entity.payResult}
+  	)
+  </insert>
+</mapper>

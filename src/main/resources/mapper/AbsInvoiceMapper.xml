@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xft.abscloud.manager.mapper.AbsInvoiceMapper">
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.AbsInvoice">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="invoice_id" jdbcType="INTEGER" property="invoiceId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="invoice_type" jdbcType="VARCHAR" property="invoiceType" />
+    <result column="invoice_title" jdbcType="VARCHAR" property="invoiceTitle" />
+    <result column="invoice_tax_num" jdbcType="VARCHAR" property="invoiceTaxNum" />
+    <result column="bank_deposit" jdbcType="VARCHAR" property="bankDeposit" />
+    <result column="banck_account" jdbcType="VARCHAR" property="banckAccount" />
+    <result column="shipping_address" jdbcType="VARCHAR" property="shippingAddress" />
+    <result column="enterprise_address" jdbcType="VARCHAR" property="enterpriseAddress" />
+    <result column="enterprise_phone" jdbcType="VARCHAR" property="enterprisePhone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="invoice_status" jdbcType="VARCHAR" property="invoiceStatus" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <!-- 查询发票 -->
+  <select id="queryInvoice" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsInvoice">
+  	SELECT 
+  		invoice_id as invoiceId,
+  		user_id as userId,
+  		order_id as orderId,
+  		invoice_type as invoiceType,
+  		invoice_title as invoiceTitle,
+  		invoice_tax_num as invoiceTaxNum,
+  		bank_deposit as bankDeposit,
+  		banck_account as banckAccount,
+  		shipping_address as shippingAddress,
+  		enterprise_address as enterpriseAddress,
+  		enterprise_phone as enterprisePhone,
+  		email,
+  		invoice_status as invoiceStatus,
+  		create_time as createTime,
+  		update_time as updateTime,
+  		remark
+  	FROM abs_invoice
+  	WHERE 1=1
+  		<if test="userId != null and userId !=''">
+	      AND user_id = #{userId}
+	    </if>
+  </select>
+  
+  <!-- 发票审核 -->
+  <update id="updateInvoiceStatus" parameterType="java.lang.String">
+  	UPDATE abs_invoice SET
+  		invoice_status = #{invoiceStatus},
+  		update_time = #{updateTime},
+  		remark = #{remark}
+  	WHERE invoice_id = #{invoiceId}
+  </update>
+  
+  <!-- 发票申请 -->
+  <insert id="applyInvoice" parameterType="xft.abscloud.manager.pojo.AbsInvoice">
+  	INSERT INTO abs_invoice
+  	(
+  		user_id,
+  		order_id,
+  		invoice_type,
+  		invoice_title,
+  		invoice_tax_num,
+  		bank_deposit,
+  		banck_account,
+  		shipping_address,
+  		enterprise_address,
+  		enterprise_phone,
+  		email,
+  		invoice_status,
+  		create_time
+  	)
+  	VALUES
+  	(
+  		#{entity.userId},
+  		#{entity.orderId},
+  		#{entity.invoiceType},
+  		#{entity.invoiceTitle},
+  		#{entity.invoiceTaxNum},
+  		#{entity.bankDeposit},
+  		#{entity.banckAccount},
+  		#{entity.shippingAddress},
+  		#{entity.enterpriseAddress},
+  		#{entity.enterprisePhone},
+  		#{entity.email},
+  		#{entity.invoiceStatus},
+  		#{entity.createTime}
+  	)
+  </insert>
+  
+  <!-- 查询发票根据订单号 -->
+  <select id="queryInvoiceByOrderId" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsInvoice">
+	  SELECT 
+	  		invoice_id as invoiceId,
+	  		user_id as userId,
+	  		order_id as orderId,
+	  		invoice_type as invoiceType,
+	  		invoice_title as invoiceTitle,
+	  		invoice_tax_num as invoiceTaxNum,
+	  		bank_deposit as bankDeposit,
+	  		banck_account as banckAccount,
+	  		shipping_address as shippingAddress,
+	  		enterprise_address as enterpriseAddress,
+	  		enterprise_phone as enterprisePhone,
+	  		email,
+	  		invoice_status as invoiceStatus,
+	  		create_time as createTime,
+	  		update_time as updateTime,
+	  		remark
+	  	FROM abs_invoice
+	  		WHERE order_id = #{orderId}
+  </select>
+  
+  <!-- 查询发票根据id -->
+  <select id="queryInvoiceById" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsInvoice">
+	  SELECT 
+	  		invoice_id as invoiceId,
+	  		user_id as userId,
+	  		order_id as orderId,
+	  		invoice_type as invoiceType,
+	  		invoice_title as invoiceTitle,
+	  		invoice_tax_num as invoiceTaxNum,
+	  		bank_deposit as bankDeposit,
+	  		banck_account as banckAccount,
+	  		shipping_address as shippingAddress,
+	  		enterprise_address as enterpriseAddress,
+	  		enterprise_phone as enterprisePhone,
+	  		email,
+	  		invoice_status as invoiceStatus,
+	  		create_time as createTime,
+	  		update_time as updateTime,
+	  		remark
+	  	FROM abs_invoice
+	  		WHERE invoice_id = #{invoiceId}
+  </select>
+</mapper>

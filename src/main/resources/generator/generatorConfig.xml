@@ -13,9 +13,9 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://57568d2a4e4d9.gz.cdb.myqcloud.com:4314/abs_member"
-                        userId="xfintechweb"
-                        password="f!1NSYCH">
+                        connectionURL="jdbc:mysql://localhost:3306/test"
+                        userId="root"
+                        password="123456">
         </jdbcConnection>
 
         <!-- 对于生成的pojo所在包 -->

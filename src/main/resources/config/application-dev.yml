@@ -6,14 +6,31 @@ server.port: 8191
 #主数据源配制
 #
 ############################################################
-spring.datasource.mysql.jdbc-url: jdbc:mysql://57568d2a4e4d9.gz.cdb.myqcloud.com:4314/abs_member?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-spring.datasource.mysql.username: xfintechweb
-spring.datasource.mysql.password: f!1NSYCH
-spring.datasource.mysql.driver-class-name: com.mysql.jdbc.Driver
-spring.datasource.mysql.druid.initial-size: 1
-spring.datasource.mysql.druid.min-idle: 1
-spring.datasource.mysql.druid.max-active: 20EquityMapper
-spring.datasource.mysql.druid.test-on-borrow: true
-spring.datasource.mysql.druid.stat-view-servlet.allow: true
+spring.datasource.url: jdbc:mysql://localhost:3306/abs_member?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+spring.datasource.username: root
+spring.datasource.password: 212121^
+spring.datasource.driver-class-name: com.mysql.jdbc.Driver
+spring.datasource.druid.initial-size: 1
+spring.datasource.druid.min-idle: 1
+spring.datasource.druid.max-active: 20
+spring.datasource.druid.test-on-borrow: true
+#spring.datasource.druid.stat-view-servlet.allow: true
 
+#spring.redis配制
+#spring: 
+#  redis:
+#    host: localhost
+#    password: 123456
+#    port: 6379
+#    database: 2
+#    timeout: 300000
 
+# 文件服务器
+fastdfs:
+  properties:
+    connect-timeout-in-seconds: 5
+    network-timeout-in-seconds: 30
+    charset: UTF-8
+    tracker-servers: localhost:22122
+    
+md.openid: 456123789

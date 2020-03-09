@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xft.abscloud.manager.mapper.AbsFileInfoMapper" >
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.AbsFileInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" property="fileId" jdbcType="BIGINT" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_URL" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="FILE_SUFFIX" property="fileSuffix" jdbcType="VARCHAR" />
+    <result column="FILE_SIZE" property="fileSize" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<!-- 上传文件 -->
+  <insert id="add" useGeneratedKeys="true" keyProperty="fileId" parameterType="xft.abscloud.manager.pojo.AbsFileInfo">
+      INSERT INTO bs_file_info
+      (
+	      file_name,
+	      file_url,
+	      file_suffix,
+	      file_size,
+	      create_time,
+	      create_user
+      )
+      VALUES(
+	      #{entity.fileName},
+	      #{entity.fileUrl},
+	      #{entity.fileSuffix},
+	      #{entity.fileSize},
+	      #{entity.createTime},
+	      #{entity.createUser}
+      )
+  </insert>
+</mapper>

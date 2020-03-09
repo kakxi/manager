@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xft.abscloud.manager.mapper.AbsOrderMapper">
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.AbsOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="m_grade_id" jdbcType="VARCHAR" property="mGradeId" />
+    <result column="member_grade" jdbcType="VARCHAR" property="memberGrade" />
+    <result column="total_amount" jdbcType="VARCHAR" property="totalAmount" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="pay_time" jdbcType="VARCHAR" property="payTime" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+  </resultMap>
+  
+  <!-- 订单创建 -->
+  <insert id="createOrder" parameterType="xft.abscloud.manager.pojo.AbsOrder">
+  	INSERT INTO abs_order
+  	(
+  		order_id,
+  		user_id,
+  		number,
+  		m_grade_id,
+  		member_grade,
+  		total_amount,
+  		pay_type,
+  		order_status,
+  		create_time
+  	)
+  	VALUES
+  	(
+  		#{entity.orderId},
+  		#{entity.userId},
+  		#{entity.number},
+  		#{entity.mGradeId},
+  		#{entity.memberGrade},
+  		#{entity.totalAmount},
+  		#{entity.payType},
+  		#{entity.orderStatus},
+  		#{entity.createTime}
+  	)
+  </insert>
+  
+  <!-- 查询订单列表 -->
+  <select id="queryOrderList" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsOrder">
+  		SELECT 
+  			order_id as orderId,
+	  		user_id	as userId,
+	  		number,
+	  		m_grade_id as mGradeId,
+	  		member_grade as memberGrade,
+	  		total_amount as totalAmount,
+	  		pay_type as payType,
+	  		order_status as orderStatus,
+	  		pay_time as payTime,
+	  		create_time  as createTime
+	  	FROM abs_order
+  			WHERE 1=1
+  		<if test="userId != null and userId !=''">
+      		AND user_id = #{userId}
+    	</if>
+    	<if test="orderId != null and orderId !=''">
+      		AND order_id = #{orderId}
+    	</if>
+    		AND order_status = #{orderStatus}
+    		ORDER BY create_time DESC
+  </select>
+  
+  <!-- 更新订单支付状态 -->
+  <update id="updateOrderStatus" parameterType="java.lang.String">
+  	UPDATE abs_order SET
+  		order_status = #{orderStatus},
+  		pay_type = #{payType},
+  		pay_time = #{payTime}
+  	WHERE order_id = #{orderId}
+  </update>
+  
+  <!-- 通过订单号查询订单 -->
+  <select id="queryOrderById" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsOrder">
+  		SELECT 
+  			order_id as orderId,
+	  		user_id	as userId,
+	  		number,
+	  		m_grade_id as mGradeId,
+	  		member_grade as memberGrade,
+	  		total_amount as totalAmount,
+	  		pay_type as payType,
+	  		order_status as orderStatus,
+	  		pay_time as payTime,
+	  		create_time  as createTime
+	  	FROM abs_order
+	  	WHERE order_id=#{orderId}
+  </select>
+  
+  <!-- 取消订单 -->
+  <update id="cancelOrder" parameterType="java.lang.String">
+  	UPDATE abs_order SET
+  		order_status = #{orderStatus}
+  	WHERE order_id = #{orderId}
+  </update>
+</mapper>
