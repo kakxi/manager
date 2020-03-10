@@ -10,7 +10,7 @@ public interface IOrderService {
 	 * 创建订单
 	 * @param absOrder
 	 */
-	public void createOrder(AbsOrder absOrder);
+	public String createOrder(AbsOrder absOrder);
 	
 	/**
 	 * 查询订单

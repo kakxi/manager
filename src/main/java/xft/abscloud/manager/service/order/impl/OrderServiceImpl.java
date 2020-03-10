@@ -31,7 +31,7 @@ public class OrderServiceImpl implements IOrderService{
 	 * 创建订单
 	 */
 	@Override
-	public void createOrder(AbsOrder absOrder) {
+	public String createOrder(AbsOrder absOrder) {
 		
 		absOrder.setCreateTime(OrderUtil.getCurrentTime());
 		absOrder.setOrderStatus(OrderStatusEnum.UN_PAY.getKey());
@@ -39,6 +39,7 @@ public class OrderServiceImpl implements IOrderService{
 		String orderNum = OrderUtil.createOrderNum(absOrder.getmGradeId());
 		absOrder.setOrderId(orderNum);
 		absOrderMapper.createOrder(absOrder);
+		return orderNum;
 	}
 
 	/**

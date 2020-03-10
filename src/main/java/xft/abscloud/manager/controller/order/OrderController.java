@@ -72,8 +72,8 @@ public class OrderController {
 		String userId = null;
 		absOrder.setUserId("1");
 		try {
-			orderService.createOrder(absOrder);
-			return JsonResult.okMsg("操作成功");
+			String orderId = orderService.createOrder(absOrder);
+			return JsonResult.build(200, "操作成功", orderId);
 		}catch(Exception e) {
 			log.error(e.getMessage()+"--->创建订单失败");
 			return JsonResult.errorMsg(e.getMessage());
