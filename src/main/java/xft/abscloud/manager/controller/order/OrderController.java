@@ -12,6 +12,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -173,10 +174,14 @@ public class OrderController {
 	 * @param absOrder
 	 * @return
 	 */
-	@PostMapping("/toWxPay")
+	@GetMapping("/toWxPay")
 	public @ResponseBody String toWxPay(HttpServletResponse response, AbsOrder absOrder) {//
 		//订单号
 		String orderId = absOrder.getOrderId();
+		AbsOrder order = orderService.queryOrderById(orderId);
+		if(order == null) {
+			throw new BusinessException("订单不存在！");
+		}
 		String goodsName = absOrder.getMemberGrade();
 		String totalAmount = absOrder.getTotalAmount();
 		String goodsId = absOrder.getmGradeId();
@@ -203,6 +208,9 @@ public class OrderController {
 		ByteArrayOutputStream baos = null;
         ServletOutputStream os = null;
         String code_url = HttpUtil.sendPost(PayProperties.wxPayUrl, JSON.toJSONString(paramMap));
+        if(StringUtils.isEmpty(code_url)) {
+        	throw new BusinessException("微信支付失败");
+        }
 		try {
 			BufferedImage img = QRCodeUtils.createQrCode(code_url);
         
