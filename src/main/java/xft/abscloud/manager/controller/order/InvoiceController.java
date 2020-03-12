@@ -15,7 +15,6 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.enums.InvoiceStatusEnum;
-import xft.abscloud.manager.enums.InvoiceTypeEnum;
 import xft.abscloud.manager.exception.BusinessException;
 import xft.abscloud.manager.pojo.AbsInvoice;
 import xft.abscloud.manager.pojo.AbsOrder;
@@ -130,14 +129,14 @@ public class InvoiceController {
 		String userId = "1";
 		absInvoice.setUserId(userId);
 		
-		String invoiceType = absInvoice.getInvoiceType();
+//		String invoiceType = absInvoice.getInvoiceType();
 		String shippingAddress = absInvoice.getShippingAddress();
 		if(StringUtils.isEmpty(shippingAddress)) {
 			throw new BusinessException("寄送地址不能为空！");
 		}
-		if(invoiceType.equals(InvoiceTypeEnum.ENTERPRISE.getKey())) {
-			checkAbsInvoice(absInvoice);
-		}
+//		if(invoiceType.equals(InvoiceTypeEnum.ENTERPRISE.getKey())) {
+//			checkAbsInvoice(absInvoice);
+//		}
 		String orderId = absInvoice.getOrderId();
 		AbsOrder absOrder = orderService.queryOrderById(orderId);
 		if(absOrder == null) {
