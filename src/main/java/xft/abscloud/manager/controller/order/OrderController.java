@@ -74,9 +74,9 @@ public class OrderController {
 		try {
 			String orderId = orderService.createOrder(absOrder);
 			return JsonResult.build(200, "操作成功", orderId);
-		}catch(Exception e) {
-			log.error(e.getMessage()+"--->创建订单失败");
-			return JsonResult.errorMsg(e.getMessage());
+		}catch(BusinessException be) {
+			log.error(be.getMessage()+"--->创建订单失败");
+			return JsonResult.errorMsg(be.getMessage());
 		}
 	}
 	
@@ -152,17 +152,18 @@ public class OrderController {
 		}
 		
 		AbsOrder absOrder = orderService.queryOrderById(orderId);
-		if(absOrder == null) {
-			throw new BusinessException("订单不存在！");
-		}
-		String payStatus = absOrder.getOrderStatus();
-		if(!payStatus.equals(OrderStatusEnum.UN_PAY.getKey())) {
-			throw new BusinessException("已支付或者已取消状态不能操作！");
-		}
+		
 		try {
+			if(absOrder == null) {
+				throw new BusinessException("订单不存在！");
+			}
+			String payStatus = absOrder.getOrderStatus();
+			if(!payStatus.equals(OrderStatusEnum.UN_PAY.getKey())) {
+				throw new BusinessException("已支付或者已取消状态不能操作！");
+			}
 			orderService.cancelOrder(orderId);
 			return JsonResult.okMsg("取消成功");
-		}catch(Exception e){
+		}catch(BusinessException e){
 			log.error(e.getMessage());
 			return JsonResult.errorMsg(e.getMessage());
 		}
@@ -260,14 +261,15 @@ public class OrderController {
 	public @ResponseBody JsonResult absPayCallBack(@RequestBody Map<String, String> param) {
 		log.info("回调更新业务开始");
 		String orderId = param.get("out_trade_no").toString();
-		if(StringUtils.isEmpty(orderId)) {
-			throw new BusinessException("订单号为空！");
-		}
+		
 		try {
+			if(StringUtils.isEmpty(orderId)) {
+				throw new BusinessException("订单号为空！");
+			}
 			orderService.absPayCallBack(orderId);
 			log.info("回调更新业务结束");
 			return JsonResult.okMsg("支付成功");
-		}catch(Exception e){
+		}catch(BusinessException e){
 			log.error(e.getMessage());
 			return JsonResult.errorMsg(e.getMessage());
 		}

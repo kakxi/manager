@@ -64,18 +64,18 @@ public class VoucherController {
 		checkVoucher(absVoucher);
 		String orderId = absVoucher.getOrderId();
 		
-		AbsOrder absOrder = orderService.queryOrderById(orderId);
-		if(absOrder == null) {
-			throw new BusinessException("订单号为：【"+orderId+"】不存在！");
-		}
-		
-		//获取当前用户
-		String userId = "1";
-		absVoucher.setUserId(userId);
 		try {
+			AbsOrder absOrder = orderService.queryOrderById(orderId);
+			if(absOrder == null) {
+				throw new BusinessException("订单号为：【"+orderId+"】不存在！");
+			}
+			
+			//获取当前用户
+			String userId = "1";
+			absVoucher.setUserId(userId);
 			voucherService.applyVoucher(absVoucher);
 			return JsonResult.okMsg("支付凭证申请成功");
-		}catch(Exception e) {
+		}catch(BusinessException e) {
 			log.error(e.getMessage());
 			return JsonResult.errorMsg(e.getMessage());
 		}
@@ -94,12 +94,16 @@ public class VoucherController {
 		checkVoucher(absVoucher);
 		//只有管理员才有此功能，获取当前用户，判断是否是管理员
 		String userId = "1";
-		if("1".equals(userId)) {
-			voucherService.applyConsumptionVoucher(absVoucher);
-		}else {
-			throw new BusinessException("此用户没有该操作权限");
+		try {
+			if("1".equals(userId)) {
+				voucherService.applyConsumptionVoucher(absVoucher);
+			}else {
+				throw new BusinessException("此用户没有该操作权限");
+			}
+		}catch(BusinessException e) {
+			log.error(e.getMessage());
+			return JsonResult.errorMsg(e.getMessage());
 		}
-		
 		return JsonResult.okMsg("操作成功");
 	}
 	
@@ -112,19 +116,21 @@ public class VoucherController {
 	 */
 	@PostMapping("/applyConsumptionVoucherRefued")
 	public @ResponseBody JsonResult applyConsumptionVoucherRefued(String voucherId, String auditOpinion) {
-		if(StringUtils.isEmpty(voucherId)) {
-			throw new BusinessException("凭证id不能为空！");
-		}
 		
-		//获取当前用户 只有管理员操作
-		String userId = "1";
-		if(!"1".equals(userId)) {
-			throw new BusinessException("此用户没有操作权限，仅管理员操作！");
-		}
+		
 		try {
+			if(StringUtils.isEmpty(voucherId)) {
+				throw new BusinessException("凭证id不能为空！");
+			}
+			//获取当前用户 只有管理员操作
+			String userId = "1";
+			
+			if(!"1".equals(userId)) {
+				throw new BusinessException("此用户没有操作权限，仅管理员操作！");
+			}
 			voucherService.applyConsumptionVoucherRefued(voucherId,auditOpinion);
 			return JsonResult.okMsg("操作成功");
-		}catch(Exception e) {
+		}catch(BusinessException e) {
 			log.error(e.getMessage());
 			return JsonResult.errorMsg(e.getMessage());
 		}
@@ -142,17 +148,18 @@ public class VoucherController {
 		String userId = "1";
 		absVoucher.setUserId(userId);
 		Integer voucherId = absVoucher.getVoucherId();
-		if( voucherId == null) {
-			throw new BusinessException("凭证id不能为空！");
-		}
-		String applyStatus = absVoucher.getApplyStatus();
-		if(applyStatus.equals(ApplyEnum.APPLY.getKey())) {
-			throw new BusinessException("ID为【"+voucherId+"】的凭证已经审核通过,不能修改！");
-		}
+		
 		try {
+			if( voucherId == null) {
+				throw new BusinessException("凭证id不能为空！");
+			}
+			String applyStatus = absVoucher.getApplyStatus();
+			if(applyStatus.equals(ApplyEnum.APPLY.getKey())) {
+				throw new BusinessException("ID为【"+voucherId+"】的凭证已经审核通过,不能修改！");
+			}
 			voucherService.editVoucher(absVoucher);
 			return JsonResult.okMsg("修改成功");
-		}catch(Exception e) {
+		}catch(BusinessException e) {
 			log.error(e.getMessage());
 			return JsonResult.errorMsg(e.getMessage());
 		}
@@ -217,6 +224,9 @@ public class VoucherController {
 				throw new BusinessException("上传失败");
 			}
 			return JsonResult.build(200, "上传成功", absFileInfo.getFileUrl());
+		}catch(BusinessException e) {
+			log.error(e.getMessage());
+			return JsonResult.okMsg("上传失败");
 		}catch(Exception e) {
 			log.error(e.getMessage());
 			return JsonResult.okMsg("上传失败");

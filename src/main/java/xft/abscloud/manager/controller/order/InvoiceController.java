@@ -65,26 +65,27 @@ public class InvoiceController {
 	 */
 	@PostMapping("/examineInvoice")
 	public @ResponseBody JsonResult examineInvoice(String invoiceId,String remark) {
-		if(StringUtils.isEmpty(invoiceId)) {
-			throw new BusinessException("发票ID不能为空！");
-		}
-		AbsInvoice absInvoice = invoiceService.queryInvoiceById(invoiceId);
-		if(absInvoice == null) {
-			throw new BusinessException("发票申请记录不存在！");
-		}
-		String invoiceStatus = absInvoice.getInvoiceStatus();
-		if(StringUtils.isEmpty(invoiceStatus)) {
-			throw new BusinessException("发票状态不能为空！");
-		}
-		if(invoiceStatus.equals(InvoiceStatusEnum.INVOICED.getKey())) {
-			throw new BusinessException(InvoiceStatusEnum.INVOICED.getValue());
-		}
+		
 		try {
+			if(StringUtils.isEmpty(invoiceId)) {
+				throw new BusinessException("发票ID不能为空！");
+			}
+			AbsInvoice absInvoice = invoiceService.queryInvoiceById(invoiceId);
+			if(absInvoice == null) {
+				throw new BusinessException("发票申请记录不存在！");
+			}
+			String invoiceStatus = absInvoice.getInvoiceStatus();
+			if(StringUtils.isEmpty(invoiceStatus)) {
+				throw new BusinessException("发票状态不能为空！");
+			}
+			if(invoiceStatus.equals(InvoiceStatusEnum.INVOICED.getKey())) {
+				throw new BusinessException(InvoiceStatusEnum.INVOICED.getValue());
+			}
 			invoiceService.updateInvoiceStatus(invoiceId,remark);
 			return JsonResult.okMsg("审核成功");
-		}catch(Exception e) {
-			log.error(e.getMessage());
-			return JsonResult.errorMsg(e.getMessage());
+		}catch(BusinessException be) {
+			log.error(be.getMessage());
+			return JsonResult.errorMsg(be.getMessage());
 		}
 	}
 	
@@ -95,25 +96,28 @@ public class InvoiceController {
 	 */
 	@PostMapping("/examineInvoiceRefused")
 	public @ResponseBody JsonResult examineInvoiceRefused(String invoiceId, String remark) {
-		if(StringUtils.isEmpty(invoiceId)) {
-			throw new BusinessException("发票ID不能为空！");
-		}
-		AbsInvoice absInvoice = invoiceService.queryInvoiceById(invoiceId);
-		if(absInvoice == null) {
-			throw new BusinessException("发票申请记录不存在！");
-		}
-		String invoiceStatus = absInvoice.getInvoiceStatus();
-		if(StringUtils.isEmpty(invoiceStatus)) {
-			throw new BusinessException("发票状态不能为空！");
-		}
-		if(invoiceStatus.equals(InvoiceStatusEnum.INVOICED.getKey())) {
-			throw new BusinessException(InvoiceStatusEnum.INVOICED.getValue());
-		}
+		
 		try {
+			if(StringUtils.isEmpty(invoiceId)) {
+				throw new BusinessException("发票ID不能为空！");
+			}
+			AbsInvoice absInvoice = invoiceService.queryInvoiceById(invoiceId);
+			
+			if(absInvoice == null) {
+				throw new BusinessException("发票申请记录不存在！");
+			}
+			String invoiceStatus = absInvoice.getInvoiceStatus();
+			if(StringUtils.isEmpty(invoiceStatus)) {
+				throw new BusinessException("发票状态不能为空！");
+			}
+			if(invoiceStatus.equals(InvoiceStatusEnum.INVOICED.getKey())) {
+				throw new BusinessException(InvoiceStatusEnum.INVOICED.getValue());
+			}
+			
 			invoiceService.examineInvoiceRefused(invoiceId,remark);
 			return JsonResult.okMsg("审核拒绝成功");
-		}catch(Exception e) {
-			log.error(e.getMessage());
+		}catch(BusinessException be) {
+			log.error(be.getMessage());
 			return JsonResult.errorMsg(InvoiceStatusEnum.INVOICED.getValue());
 		}
 	}
@@ -143,15 +147,16 @@ public class InvoiceController {
 			throw new BusinessException("订单号为：【"+orderId+"】的订单不存在！");
 		}
 		AbsInvoice newAbsInvoice = invoiceService.queryInvoiceByOrderId(orderId);
-		if(newAbsInvoice !=null) {
-			throw new BusinessException("订单号为：【"+orderId+"】的订单已经申请发票记录！");
-		}
+		
 		try {
+			if(newAbsInvoice !=null) {
+				throw new BusinessException("订单号为：【"+orderId+"】的订单已经申请发票记录！");
+			}
 			invoiceService.applyInvoice(absInvoice);
 			return JsonResult.okMsg("发票申请成功");
-		}catch(Exception e) {
-			log.error(e.getMessage());
-			return JsonResult.errorMsg(e.getMessage());
+		}catch(BusinessException be) {
+			log.error(be.getMessage());
+			return JsonResult.errorMsg(be.getMessage());
 		}
 	}
 
