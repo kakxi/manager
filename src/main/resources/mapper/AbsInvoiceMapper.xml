@@ -8,6 +8,8 @@
     <id column="invoice_id" jdbcType="INTEGER" property="invoiceId" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="fp_type" jdbcType="VARCHAR" property="fpType" />
+    <result column="invoice_content" jdbcType="VARCHAR" property="invoiceContent" />
     <result column="invoice_type" jdbcType="VARCHAR" property="invoiceType" />
     <result column="invoice_title" jdbcType="VARCHAR" property="invoiceTitle" />
     <result column="invoice_tax_num" jdbcType="VARCHAR" property="invoiceTaxNum" />
@@ -29,6 +31,8 @@
   		invoice_id as invoiceId,
   		user_id as userId,
   		order_id as orderId,
+  		fp_type as fpType,
+  		invoice_content as invoiceContent,
   		invoice_type as invoiceType,
   		invoice_title as invoiceTitle,
   		invoice_tax_num as invoiceTaxNum,
@@ -64,6 +68,8 @@
   	(
   		user_id,
   		order_id,
+  		fp_type,
+  		invoice_content,
   		invoice_type,
   		invoice_title,
   		invoice_tax_num,
@@ -80,6 +86,8 @@
   	(
   		#{entity.userId},
   		#{entity.orderId},
+  		#{entity.fpType},
+  		#{entity.invoiceContent},
   		#{entity.invoiceType},
   		#{entity.invoiceTitle},
   		#{entity.invoiceTaxNum},
@@ -100,6 +108,8 @@
 	  		invoice_id as invoiceId,
 	  		user_id as userId,
 	  		order_id as orderId,
+	  		fp_type as fpType,
+	  		invoice_content as invoiceContent,
 	  		invoice_type as invoiceType,
 	  		invoice_title as invoiceTitle,
 	  		invoice_tax_num as invoiceTaxNum,
@@ -123,6 +133,8 @@
 	  		invoice_id as invoiceId,
 	  		user_id as userId,
 	  		order_id as orderId,
+	  		fp_type as fpType,
+	  		invoice_content as invoiceContent,
 	  		invoice_type as invoiceType,
 	  		invoice_title as invoiceTitle,
 	  		invoice_tax_num as invoiceTaxNum,

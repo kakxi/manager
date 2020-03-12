@@ -1,10 +1,11 @@
 package xft.abscloud.manager.enums;
 
-public enum InvoiceTypeEnum {
+public enum InvoiceContentEnum {
 
-	PERSONAL("001","个人"),
 	
-	ENTERPRISE("002","单位");
+	INVOICE_CONTENT_01("01","服务费"),
+	
+	INVOICE_CONTENT_02("02","技术服务费");
 	
 	private String key;
 	
@@ -26,7 +27,7 @@ public enum InvoiceTypeEnum {
 		this.value = value;
 	}
 
-	InvoiceTypeEnum(String key, String value) {
+	InvoiceContentEnum(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}

@@ -12,7 +12,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -173,9 +172,10 @@ public class OrderController {
 	 * 微信支付
 	 * @param absOrder
 	 * @return
+	 * @throws Exception 
 	 */
-	@GetMapping("/toWxPay")
-	public @ResponseBody String toWxPay(HttpServletResponse response, AbsOrder absOrder) {//
+	@RequestMapping("/toWxPay")
+	public @ResponseBody String toWxPay(HttpServletResponse response, AbsOrder absOrder) throws Exception {//
 		//订单号
 		String orderId = absOrder.getOrderId();
 		AbsOrder order = orderService.queryOrderById(orderId);
@@ -209,7 +209,7 @@ public class OrderController {
         ServletOutputStream os = null;
         String code_url = HttpUtil.sendPost(PayProperties.wxPayUrl, JSON.toJSONString(paramMap));
         if(StringUtils.isEmpty(code_url)) {
-        	throw new BusinessException("微信支付失败");
+        	throw new BusinessException("微信创建二维码失败！");
         }
 		try {
 			BufferedImage img = QRCodeUtils.createQrCode(code_url);
@@ -272,6 +272,23 @@ public class OrderController {
 			return JsonResult.errorMsg(e.getMessage());
 		}
 
+	}
+	
+	/**
+	 * 根据订单号查询订单
+	 * @param orderId
+	 * @return
+	 */
+	@RequestMapping("/queryOrderById")
+	public @ResponseBody JsonResult queryOrderById(String orderId) {
+		
+		if(StringUtils.isEmpty(orderId)) {
+			throw new BusinessException("订单号不能为空！");
+		}
+		
+		AbsOrder absOrder = orderService.queryOrderById(orderId);
+		
+		return JsonResult.build(200, "查询成功",absOrder);
 	}
 	
 }

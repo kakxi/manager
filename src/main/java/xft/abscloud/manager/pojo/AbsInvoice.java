@@ -21,7 +21,7 @@ public class AbsInvoice {
     private String orderId;
 
     /**
-     * 发票类型  001-个人或事业单位  002-企业
+     * 抬头类型  001-个人  002-单位
      */
     @Column(name = "invoice_type")
     private String invoiceType;
@@ -97,6 +97,19 @@ public class AbsInvoice {
     @Column(name = "remark")
     private String remark;
 
+    /**
+     * 发票类型
+     */
+    @Column(name = "fp_type")
+    private String fpType;
+    
+    
+    /**
+     * 发票内容
+     */
+    @Column(name = "invoice_content")
+    private String invoiceContent;
+    
     /**
      * @return invoice_id
      */
@@ -370,4 +383,22 @@ public class AbsInvoice {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+	public String getFpType() {
+		return fpType;
+	}
+
+	public void setFpType(String fpType) {
+		this.fpType = fpType;
+	}
+
+	public String getInvoiceContent() {
+		return invoiceContent;
+	}
+
+	public void setInvoiceContent(String invoiceContent) {
+		this.invoiceContent = invoiceContent;
+	}
+    
+    
 }

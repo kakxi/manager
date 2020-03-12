@@ -94,8 +94,9 @@ public class HttpUtil {
      * @param param
      *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return 所代表远程资源的响应结果
+	 * @throws Exception 
      */
-    public static String sendPost(String url,String param) {
+    public static String sendPost(String url,String param) throws Exception {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -132,8 +133,7 @@ public class HttpUtil {
             	HttpUtil.AutoCode=conn.getHeaderField("AutoCode");
             }
         } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！"+e);
-            e.printStackTrace();
+        	throw new Exception("发送 POST 请求出现异常："+e.getMessage());
         }
         //使用finally块来关闭输出流、输入流
         finally{
@@ -146,7 +146,7 @@ public class HttpUtil {
                 }
             }
             catch(IOException ex){
-                ex.printStackTrace();
+            	throw new IOException("发送 POST 请求出现异常："+ex.getMessage());
             }
         }
         return result;

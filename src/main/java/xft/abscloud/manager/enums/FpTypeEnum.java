@@ -1,10 +1,12 @@
 package xft.abscloud.manager.enums;
 
-public enum InvoiceTypeEnum {
-
-	PERSONAL("001","个人"),
+public enum FpTypeEnum {
 	
-	ENTERPRISE("002","单位");
+	ELECTRONIC_GENERAL_INVOICE("00","增值税电子普通发票"),
+	
+	PAPER_GENERAL_INVOICE("01","增值税纸质普通发票"),
+	
+	PAPER_SPECIAL_INVOICE("02","增值税纸质专用发票");
 	
 	private String key;
 	
@@ -26,7 +28,7 @@ public enum InvoiceTypeEnum {
 		this.value = value;
 	}
 
-	InvoiceTypeEnum(String key, String value) {
+	FpTypeEnum(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}
