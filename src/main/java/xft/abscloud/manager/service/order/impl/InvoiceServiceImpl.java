@@ -32,8 +32,8 @@ public class InvoiceServiceImpl implements InvoiceSerive{
 		for(AbsInvoice invoice : invoiceList) {
 			String fpType = invoice.getFpType();
 			invoice.setFpType(this.transferFpType(fpType));
-			String invoiceStatus = invoice.getInvoiceStatus();
-			invoice.setInvoiceStatus(this.transferInvoiceStatus(invoiceStatus));
+//			String invoiceStatus = invoice.getInvoiceStatus();
+//			invoice.setInvoiceStatus(this.transferInvoiceStatus(invoiceStatus));
 			String invoiceContent = invoice.getInvoiceContent();
 			invoice.setInvoiceContent(this.transferInvoiceContent(invoiceContent));
 			String invoiceType = invoice.getInvoiceType();
