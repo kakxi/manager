@@ -111,6 +111,14 @@ public class AbsInvoice {
     private String invoiceContent;
     
     /**
+     * 联系电话
+     */
+    @Column(name = "user_phone")
+    private String userPhone;
+    
+    
+    
+    /**
      * @return invoice_id
      */
     public Integer getInvoiceId() {
@@ -398,6 +406,14 @@ public class AbsInvoice {
 
 	public void setInvoiceContent(String invoiceContent) {
 		this.invoiceContent = invoiceContent;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
     
     

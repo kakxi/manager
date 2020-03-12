@@ -163,7 +163,7 @@ public class InvoiceController {
 		String bankAccount = absInvoice.getBanckAccount();
 		String enterprisePhone = absInvoice.getEnterprisePhone();
 		String enterpriseAddress = absInvoice.getEnterpriseAddress();
-		String email = absInvoice.getEmail();
+//		String email = absInvoice.getEmail();
 		if(StringUtils.isEmpty(invoiceTitle)) {
 			throw new BusinessException("发票抬头不能为空！");
 		}
@@ -182,9 +182,9 @@ public class InvoiceController {
 		if(StringUtils.isEmpty(enterpriseAddress)) {
 			throw new BusinessException("企业地址不能为空！");
 		}
-		if(StringUtils.isEmpty(email)) {
-			throw new BusinessException("企业邮箱不能为空！");
-		}
+//		if(StringUtils.isEmpty(email)) {
+//			throw new BusinessException("企业邮箱不能为空！");
+//		}
 	}
 	
 	/**

@@ -63,7 +63,7 @@ public class InvoiceServiceImpl implements InvoiceSerive{
 		String invoiceStatus = InvoiceStatusEnum.UN_INVOICED.getKey();
 		absInvoice.setCreateTime(createTime);
 		absInvoice.setInvoiceStatus(invoiceStatus);
-		absInvoice.setInvoiceContent(InvoiceContentEnum.INVOICE_CONTENT_01.getKey());
+//		absInvoice.setInvoiceContent(InvoiceContentEnum.INVOICE_CONTENT_01.getKey());
 		absInvoiceMapper.applyInvoice(absInvoice);
 	}
 
