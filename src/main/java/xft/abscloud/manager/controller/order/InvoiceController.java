@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.enums.InvoiceStatusEnum;
+import xft.abscloud.manager.enums.OrderStatusEnum;
 import xft.abscloud.manager.exception.BusinessException;
 import xft.abscloud.manager.pojo.AbsInvoice;
 import xft.abscloud.manager.pojo.AbsOrder;
@@ -40,7 +41,7 @@ public class InvoiceController {
 	 * @return
 	 */
 	@PostMapping("/queryInvoice")
-	public @ResponseBody JsonResult queryInvoice(Integer pageNum, Integer pageSize) {
+	public @ResponseBody JsonResult queryInvoice(Integer pageNum, Integer pageSize, String invoiceStatus) {
 		PageHelper.startPage(pageNum, pageSize);
 		//获取当前用户
 		//如果是管理员 查询所有用户的消费记录，否则查询当前用户的消费记录
@@ -48,9 +49,9 @@ public class InvoiceController {
 		List<AbsInvoice> invoiceList = null;
 		//如果是管理员
 		if("".equals(userId)) {
-			invoiceList = invoiceService.queryInvoice(null);
+			invoiceList = invoiceService.queryInvoice(null,invoiceStatus);
 		}else {//如果不是管理员
-			invoiceList = invoiceService.queryInvoice(userId);
+			invoiceList = invoiceService.queryInvoice(userId,invoiceStatus);
 		}
         
         PageInfo<AbsInvoice> pageInfo = new PageInfo<AbsInvoice>(invoiceList);
@@ -135,20 +136,24 @@ public class InvoiceController {
 		
 //		String invoiceType = absInvoice.getInvoiceType();
 		String shippingAddress = absInvoice.getShippingAddress();
-		if(StringUtils.isEmpty(shippingAddress)) {
-			throw new BusinessException("寄送地址不能为空！");
-		}
-//		if(invoiceType.equals(InvoiceTypeEnum.ENTERPRISE.getKey())) {
-//			checkAbsInvoice(absInvoice);
-//		}
-		String orderId = absInvoice.getOrderId();
-		AbsOrder absOrder = orderService.queryOrderById(orderId);
-		if(absOrder == null) {
-			throw new BusinessException("订单号为：【"+orderId+"】的订单不存在！");
-		}
-		AbsInvoice newAbsInvoice = invoiceService.queryInvoiceByOrderId(orderId);
 		
 		try {
+			if(StringUtils.isEmpty(shippingAddress)) {
+				throw new BusinessException("寄送地址不能为空！");
+			}
+//			if(invoiceType.equals(InvoiceTypeEnum.ENTERPRISE.getKey())) {
+//				checkAbsInvoice(absInvoice);
+//			}
+			String orderId = absInvoice.getOrderId();
+			AbsOrder absOrder = orderService.queryOrderById(orderId);
+			if(absOrder == null) {
+				throw new BusinessException("订单号为：【"+orderId+"】的订单不存在！");
+			}
+			if(!absOrder.getOrderStatus().equals(OrderStatusEnum.PAY.getKey())) {
+				throw new BusinessException("订单号为：【"+orderId+"】的订单还未支付,不能申请发票！");
+			}
+			AbsInvoice newAbsInvoice = invoiceService.queryInvoiceByOrderId(orderId);
+			
 			if(newAbsInvoice !=null) {
 				throw new BusinessException("订单号为：【"+orderId+"】的订单已经申请发票记录！");
 			}

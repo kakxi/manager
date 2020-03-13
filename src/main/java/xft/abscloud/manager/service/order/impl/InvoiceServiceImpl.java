@@ -26,9 +26,9 @@ public class InvoiceServiceImpl implements InvoiceSerive{
 	 * 查询发票
 	 */
 	@Override
-	public List<AbsInvoice> queryInvoice(String userId) {
+	public List<AbsInvoice> queryInvoice(String userId, String invoiceStatus) {
 		
-		List<AbsInvoice> invoiceList = absInvoiceMapper.queryInvoice(userId);
+		List<AbsInvoice> invoiceList = absInvoiceMapper.queryInvoice(userId,invoiceStatus);
 		for(AbsInvoice invoice : invoiceList) {
 			String fpType = invoice.getFpType();
 			invoice.setFpType(this.transferFpType(fpType));

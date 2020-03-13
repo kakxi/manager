@@ -14,7 +14,7 @@ public interface AbsInvoiceMapper extends MyMapper<AbsInvoice>{
 	 * @param userId
 	 * @return
 	 */
-	public List<AbsInvoice> queryInvoice(String userId);
+	public List<AbsInvoice> queryInvoice(String userId, String invoiceStatus);
 
 	/**
 	 * 发票审核

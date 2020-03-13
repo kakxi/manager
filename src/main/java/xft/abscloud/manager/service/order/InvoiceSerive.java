@@ -9,9 +9,10 @@ public interface InvoiceSerive {
 	/**
 	 * 查询发票信息
 	 * @param userId
+	 * @param invoiceStatus 
 	 * @return
 	 */
-	public List<AbsInvoice> queryInvoice(String  userId);
+	public List<AbsInvoice> queryInvoice(String  userId, String invoiceStatus);
 
 	/**
 	 * 发票审核

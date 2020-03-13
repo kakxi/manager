@@ -64,6 +64,8 @@ public class AbsOrder {
     @Column(name = "create_time")
     private String createTime;
 
+    private String inoviceStatus;
+    
     /**
      * 获取订单编号
      *
@@ -243,4 +245,12 @@ public class AbsOrder {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
+
+	public String getInoviceStatus() {
+		return inoviceStatus;
+	}
+
+	public void setInoviceStatus(String inoviceStatus) {
+		this.inoviceStatus = inoviceStatus;
+	}
 }
