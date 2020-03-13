@@ -8,6 +8,7 @@
     <id column="expense_id" jdbcType="INTEGER" property="expenseId" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="member_id" jdbcType="VARCHAR" property="memberId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="m_grade_id" jdbcType="VARCHAR" property="mGradeId" />
     <result column="member_grade" jdbcType="VARCHAR" property="memberGrade" />
     <result column="expense_time" jdbcType="VARCHAR" property="expenseTime" />
@@ -22,6 +23,7 @@
   		expense_id as expenseId,
   		order_id as orderId,
   		member_id as memberId,
+  		user_name as userName,
   		m_grade_id as mGradeId,
   		member_grade as memberGrade,
   		expense_time as expenseTime,
@@ -41,6 +43,7 @@
   	(
   		order_id,
   		member_id,
+  		user_name,
   		m_grade_id,
   		member_grade,
   		expense_time,
@@ -52,6 +55,7 @@
   	(
   		#{entity.orderId},
   		#{entity.memberId},
+  		#{entity.userName},
   		#{entity.mGradeId},
   		#{entity.memberGrade},
   		#{entity.expenseTime},

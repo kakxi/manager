@@ -7,6 +7,7 @@
     -->
     <id column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="m_grade_id" jdbcType="VARCHAR" property="mGradeId" />
     <result column="member_grade" jdbcType="VARCHAR" property="memberGrade" />
@@ -23,6 +24,7 @@
   	(
   		order_id,
   		user_id,
+  		user_name,
   		number,
   		m_grade_id,
   		member_grade,
@@ -35,6 +37,7 @@
   	(
   		#{entity.orderId},
   		#{entity.userId},
+  		#{entity.userName},
   		#{entity.number},
   		#{entity.mGradeId},
   		#{entity.memberGrade},
@@ -48,26 +51,29 @@
   <!-- 查询订单列表 -->
   <select id="queryOrderList" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsOrder">
   		SELECT 
-  			order_id as orderId,
-	  		user_id	as userId,
-	  		number,
-	  		m_grade_id as mGradeId,
-	  		member_grade as memberGrade,
-	  		total_amount as totalAmount,
-	  		pay_type as payType,
-	  		order_status as orderStatus,
-	  		pay_time as payTime,
-	  		create_time  as createTime
-	  	FROM abs_order
+  			o.order_id as orderId,
+	  		o.user_id	as userId,
+	  		o.user_name as userName,
+	  		o.number,
+	  		o.m_grade_id as mGradeId,
+	  		o.member_grade as memberGrade,
+	  		o.total_amount as totalAmount,
+	  		o.pay_type as payType,
+	  		o.order_status as orderStatus,
+	  		o.pay_time as payTime,
+	  		o.create_time  as createTime,
+	  		i.invoice_status as invoiceStatus
+	  	FROM abs_order o
+	  	LEFT JOIN abs_invoice i on o.order_id = i.order_id
   			WHERE 1=1
   		<if test="userId != null and userId !=''">
-      		AND user_id = #{userId}
+      		AND o.user_id = #{userId}
     	</if>
     	<if test="orderId != null and orderId !=''">
-      		AND order_id = #{orderId}
+      		AND o.order_id = #{orderId}
     	</if>
-    		AND order_status = #{orderStatus}
-    		ORDER BY create_time DESC
+    		AND o.order_status = #{orderStatus}
+    		ORDER BY o.create_time DESC
   </select>
   
   <!-- 更新订单支付状态 -->
@@ -84,6 +90,7 @@
   		SELECT 
   			order_id as orderId,
 	  		user_id	as userId,
+	  		o.user_name as userName,
 	  		number,
 	  		m_grade_id as mGradeId,
 	  		member_grade as memberGrade,
@@ -102,4 +109,31 @@
   		order_status = #{orderStatus}
   	WHERE order_id = #{orderId}
   </update>
+  
+  
+  <!-- 查询需要可以开发票的订单 -->
+  <select id="queryOrderByfp" parameterType="java.lang.String" resultType="xft.abscloud.manager.pojo.AbsOrder">
+	  SELECT 
+	  	o.order_id as orderId,
+  		o.user_id	as userId,
+  		o.user_name as userName,
+  		o.number,
+  		o.m_grade_id as mGradeId,
+  		o.member_grade as memberGrade,
+  		o.total_amount as totalAmount,
+  		o.pay_type as payType,
+  		o.order_status as orderStatus,
+  		o.pay_time as payTime,
+  		o.create_time  as createTime
+    FROM abs_order o 
+		WHERE NOT EXISTS (SELECT * FROM abs_invoice i WHERE o.order_id = i.order_id)
+		<if test="orderId != null and orderId !=''">
+      		AND o.order_id = #{orderId}
+    	</if>
+    	<if test="userId != null and userId !=''">
+      		AND o.user_id = #{userId}
+    	</if>
+		AND o.order_status= #{orderStatus}
+  </select>
+  
 </mapper>

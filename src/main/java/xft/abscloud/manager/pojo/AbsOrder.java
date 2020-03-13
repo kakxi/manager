@@ -18,6 +18,12 @@ public class AbsOrder {
     private String userId;
 
     /**
+     * 用户名
+     */
+    @Column(name = "user_name")
+    private String userName;
+
+    /**
      * 数量   当前单位是：年
      */
     private String number;
@@ -252,5 +258,13 @@ public class AbsOrder {
 
 	public void setInoviceStatus(String inoviceStatus) {
 		this.inoviceStatus = inoviceStatus;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

@@ -15,6 +15,12 @@ public class AbsInvoice {
     private String userId;
 
     /**
+     * 用户名
+     */
+    @Column(name = "user_name")
+    private String userName;
+
+    /**
      * 订单id
      */
     @Column(name = "order_id")
@@ -414,6 +420,14 @@ public class AbsInvoice {
 
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
     
     

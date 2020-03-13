@@ -45,4 +45,13 @@ public interface AbsOrderMapper extends MyMapper<AbsOrder>{
 	 */
 	public void cancelOrder(String orderId, String orderStatus);
 
+	/**
+	 * 查询可以开发票的订单
+	 * @param userId
+	 * @param orderId
+	 * @param orderStatus 
+	 * @return
+	 */
+	public List<AbsOrder> queryOrderByfp(String userId, String orderId, String orderStatus);
+
 }

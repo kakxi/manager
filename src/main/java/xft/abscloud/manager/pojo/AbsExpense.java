@@ -49,6 +49,12 @@ public class AbsExpense {
      */
     @Column(name = "pay_result")
     private String payResult;
+    
+    /**
+     * 用户名
+     */
+    @Column(name = "user_name")
+    private String userName;
 
     /**
      * @return expense_id
@@ -199,4 +205,12 @@ public class AbsExpense {
     public void setPayResult(String payResult) {
         this.payResult = payResult;
     }
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }

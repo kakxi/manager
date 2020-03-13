@@ -21,6 +21,12 @@ public class AbsVoucher {
     private String userId;
 
     /**
+     * 用户名
+     */
+    @Column(name = "user_name")
+    private String userName;
+
+    /**
      * 支付金额
      */
     @Column(name = "pay_amount")
@@ -285,4 +291,12 @@ public class AbsVoucher {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }

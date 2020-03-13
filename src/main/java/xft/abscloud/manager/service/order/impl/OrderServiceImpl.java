@@ -49,6 +49,11 @@ public class OrderServiceImpl implements IOrderService{
 	public List<AbsOrder> queryOderList(String userId, String orderId, String orderStatus) {
 		
 		List<AbsOrder> orderList =  absOrderMapper.queryOrderList(userId, orderId, orderStatus);
+		this.checkList(orderList);
+		return orderList;
+	}
+	
+	public void checkList(List<AbsOrder> orderList) {
 		if(orderList !=null && orderList.size()>0) {
 			for(AbsOrder absOrder : orderList) {
 				String orderStatus1 = absOrder.getOrderStatus();
@@ -59,8 +64,6 @@ public class OrderServiceImpl implements IOrderService{
 				absOrder.setPayType(newPayType);
 			}
 		}
-		
-		return orderList;
 	}
 
 	/**
@@ -161,6 +164,17 @@ public class OrderServiceImpl implements IOrderService{
 			}
 		}
 		return str;
+	}
+
+	/**
+	 * 查询可以开发票的订单
+	 */
+	@Override
+	public List<AbsOrder> queryOrderByfp(String userId, String orderId) {
+
+		String orderStatus = OrderStatusEnum.PAY.getKey();
+		
+		return absOrderMapper.queryOrderByfp(userId,orderId,orderStatus);
 	}
 	
 }

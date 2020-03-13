@@ -7,6 +7,7 @@
     -->
     <id column="invoice_id" jdbcType="INTEGER" property="invoiceId" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="fp_type" jdbcType="VARCHAR" property="fpType" />
     <result column="invoice_content" jdbcType="VARCHAR" property="invoiceContent" />
@@ -19,6 +20,7 @@
     <result column="enterprise_address" jdbcType="VARCHAR" property="enterpriseAddress" />
     <result column="enterprise_phone" jdbcType="VARCHAR" property="enterprisePhone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
     <result column="invoice_status" jdbcType="VARCHAR" property="invoiceStatus" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
@@ -30,7 +32,9 @@
   	SELECT 
   		invoice_id as invoiceId,
   		user_id as userId,
+  		user_name as userName,
   		order_id as orderId,
+  		user_phone as userPhone,
   		fp_type as fpType,
   		invoice_content as invoiceContent,
   		invoice_type as invoiceType,
@@ -51,6 +55,9 @@
   		<if test="userId != null and userId !=''">
 	      AND user_id = #{userId}
 	    </if>
+	    <if test="invoiceStatus != null and invoiceStatus !=''">
+	      AND invoice_status = #{invoiceStatus}
+	    </if>
   </select>
   
   <!-- 发票审核 -->
@@ -67,8 +74,10 @@
   	INSERT INTO abs_invoice
   	(
   		user_id,
+  		user_name,
   		order_id,
   		fp_type,
+  		user_phone,
   		invoice_content,
   		invoice_type,
   		invoice_title,
@@ -85,8 +94,10 @@
   	VALUES
   	(
   		#{entity.userId},
+  		#{entity.userName},
   		#{entity.orderId},
   		#{entity.fpType},
+  		#{entity.userPhone},
   		#{entity.invoiceContent},
   		#{entity.invoiceType},
   		#{entity.invoiceTitle},
@@ -107,8 +118,10 @@
 	  SELECT 
 	  		invoice_id as invoiceId,
 	  		user_id as userId,
+	  		user_name as userName,
 	  		order_id as orderId,
 	  		fp_type as fpType,
+	  		user_phone as userPhone,
 	  		invoice_content as invoiceContent,
 	  		invoice_type as invoiceType,
 	  		invoice_title as invoiceTitle,
@@ -132,8 +145,10 @@
 	  SELECT 
 	  		invoice_id as invoiceId,
 	  		user_id as userId,
+	  		user_name as userName,
 	  		order_id as orderId,
 	  		fp_type as fpType,
+	  		user_phone as userPhone,
 	  		invoice_content as invoiceContent,
 	  		invoice_type as invoiceType,
 	  		invoice_title as invoiceTitle,

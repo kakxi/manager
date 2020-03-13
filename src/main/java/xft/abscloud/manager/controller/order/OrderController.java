@@ -94,7 +94,7 @@ public class OrderController {
 		PageHelper.startPage(pageNum, pageSize);
 		//获取当前用户
 		String userId = "1";
-		 List<AbsOrder> userList = null;
+		List<AbsOrder> userList = null;
 		//判断是否管理员
 		//是管理员
 		if("1".equals(userId)) {
@@ -291,6 +291,37 @@ public class OrderController {
 		AbsOrder absOrder = orderService.queryOrderById(orderId);
 		
 		return JsonResult.build(200, "查询成功",absOrder);
+	}
+	
+	/**
+	 * c查询可以开发发票的订单
+	 * @param pageNum
+	 * @param pageSize
+	 * @param userId
+	 * @param orderId
+	 * @return
+	 */
+	@RequestMapping("/queryOrderByfp")
+	public @ResponseBody JsonResult queryOrderByfp(Integer pageNum, Integer pageSize, String userId, String orderId) {
+		PageHelper.startPage(pageNum, pageSize);
+		//获取当前用户
+		if(StringUtils.isEmpty(userId)) {
+			userId = "1";
+		}
+		
+		List<AbsOrder> userList = null;
+		//判断是否管理员
+		//是管理员
+		if("1".equals(userId)) {
+			userList = orderService.queryOrderByfp(null,orderId);
+		}else {//不是
+			userList = orderService.queryOrderByfp(userId,orderId);
+		}
+		
+        PageInfo<AbsOrder> pageInfo = new PageInfo<AbsOrder>(userList);
+        
+        return JsonResult.build(200, "操作成功", pageInfo);
+		
 	}
 	
 }

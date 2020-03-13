@@ -59,5 +59,13 @@ public interface IOrderService {
 	 * @param orderId
 	 */
 	public void addExpense(String orderId);
+
+	/**
+	 * 查询可以开发票的订单
+	 * @param object
+	 * @param orderId
+	 * @return
+	 */
+	public List<AbsOrder> queryOrderByfp(String userId, String orderId);
 	
 }
