@@ -44,8 +44,8 @@ public class AbsFileInfo {
     /**
      * 创建人员
      */
-    @Column(name = "CREATE_PERSON")
-    private String createPerson;
+    @Column(name = "CREATE_USER")
+    private String createUser;
 
     /**
      * 获取文件ID
@@ -160,8 +160,8 @@ public class AbsFileInfo {
      *
      * @return CREATE_PERSON - 创建人员
      */
-    public String getCreatePerson() {
-        return createPerson;
+    public String getCreateUser() {
+        return createUser;
     }
 
     /**
@@ -169,7 +169,7 @@ public class AbsFileInfo {
      *
      * @param createPerson 创建人员
      */
-    public void setCreatePerson(String createPerson) {
-        this.createPerson = createPerson;
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
     }
 }
