@@ -16,7 +16,7 @@
 
 	<!-- 上传文件 -->
   <insert id="add" useGeneratedKeys="true" keyProperty="fileId" parameterType="xft.abscloud.manager.pojo.AbsFileInfo">
-      INSERT INTO bs_file_info
+      INSERT INTO abs_file_info
       (
 	      file_name,
 	      file_url,
