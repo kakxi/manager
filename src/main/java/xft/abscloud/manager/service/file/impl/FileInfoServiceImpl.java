@@ -51,7 +51,7 @@ public class FileInfoServiceImpl implements FileInfoService{
         fileInfo.setFileName(filename);
         fileInfo.setFileSuffix(suffix);
         fileInfo.setCreateTime(OrderUtil.getCurrentTime());
-        fileInfo.setCreatePerson(null);
+        fileInfo.setCreateUser(null);
         byte[] bs = file.getBytes();
         AbsFileInfo fileInfo2 = uploadFile(bs, fileInfo);
         return fileInfo2;
