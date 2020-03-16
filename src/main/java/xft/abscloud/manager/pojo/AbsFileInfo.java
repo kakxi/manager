@@ -2,7 +2,7 @@ package xft.abscloud.manager.pojo;
 
 import javax.persistence.*;
 
-@Table(name = "bs_file_info")
+@Table(name = "abs_file_info")
 public class AbsFileInfo {
     /**
      * 文件ID
