@@ -94,7 +94,13 @@ public class VoucherController {
 		checkVoucher(absVoucher);
 		//只有管理员才有此功能，获取当前用户，判断是否是管理员
 		String userId = "1";
+		Integer voucherId = absVoucher.getVoucherId();
+		
 		try {
+			if( voucherId == null) {
+				throw new BusinessException("凭证id不能为空！");
+			}
+			
 			if("1".equals(userId)) {
 				voucherService.applyConsumptionVoucher(absVoucher);
 			}else {
@@ -116,7 +122,6 @@ public class VoucherController {
 	 */
 	@PostMapping("/applyConsumptionVoucherRefued")
 	public @ResponseBody JsonResult applyConsumptionVoucherRefued(String voucherId, String auditOpinion) {
-		
 		
 		try {
 			if(StringUtils.isEmpty(voucherId)) {
@@ -145,6 +150,7 @@ public class VoucherController {
 	public @ResponseBody JsonResult editVoucher(AbsVoucher absVoucher) {
 		
 		checkVoucher(absVoucher);
+		
 		String userId = "1";
 		absVoucher.setUserId(userId);
 		Integer voucherId = absVoucher.getVoucherId();
@@ -166,9 +172,7 @@ public class VoucherController {
 	}
 	
 	private void checkVoucher(AbsVoucher absVoucher) {
-		if(absVoucher.getVoucherId() == null) {
-			throw new BusinessException("凭证Id不能为空！");
-		}
+
 		if(StringUtils.isEmpty(absVoucher.getPayAmount())) {
 			throw new BusinessException("支付金额不能为空！");
 		}
