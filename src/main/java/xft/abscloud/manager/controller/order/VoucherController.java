@@ -226,10 +226,10 @@ public class VoucherController {
 			return JsonResult.build(200, "上传成功", absFileInfo.getFileUrl());
 		}catch(BusinessException e) {
 			log.error(e.getMessage());
-			return JsonResult.okMsg("上传失败");
+			return JsonResult.errorMsg("上传失败");
 		}catch(Exception e) {
 			log.error(e.getMessage());
-			return JsonResult.okMsg("上传失败");
+			return JsonResult.errorMsg("上传失败");
 		}
 	}
 	
