@@ -62,9 +62,11 @@
 	  		o.order_status as orderStatus,
 	  		o.pay_time as payTime,
 	  		o.create_time  as createTime,
-	  		i.invoice_status as invoiceStatus
+	  		i.invoice_status as invoiceStatus,
+	  		v.apply_status as applyStatus
 	  	FROM abs_order o
 	  	LEFT JOIN abs_invoice i on o.order_id = i.order_id
+	  	LEFT JOIN abs_voucher v on v.order_id = o.order_id
   			WHERE 1=1
   		<if test="userId != null and userId !=''">
       		AND o.user_id = #{userId}

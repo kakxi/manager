@@ -73,6 +73,11 @@ public class AbsOrder {
     private String inoviceStatus;
     
     /**
+     * 凭证审核状态
+     */
+    private String applyStatus;
+    
+    /**
      * 获取订单编号
      *
      * @return order_id - 订单编号
@@ -266,5 +271,13 @@ public class AbsOrder {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getApplyStatus() {
+		return applyStatus;
+	}
+
+	public void setApplyStatus(String applyStatus) {
+		this.applyStatus = applyStatus;
 	}
 }

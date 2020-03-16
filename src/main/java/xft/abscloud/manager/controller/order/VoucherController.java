@@ -69,7 +69,10 @@ public class VoucherController {
 			if(absOrder == null) {
 				throw new BusinessException("订单号为：【"+orderId+"】不存在！");
 			}
-			
+			AbsVoucher voucher = voucherService.queryVoucherByOrderId(orderId);
+			if(voucher !=null) {
+				throw new BusinessException("此订单已经申请凭证！");
+			}
 			//获取当前用户
 			String userId = "1";
 			absVoucher.setUserId(userId);

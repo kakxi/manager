@@ -37,5 +37,11 @@ public interface IVoucherService {
 	 * @param absVoucher
 	 */
 	public void editVoucher(AbsVoucher absVoucher);
+	
+	/**
+	 * 根据订单号查询凭证
+	 * @param orderId
+	 */
+	public AbsVoucher queryVoucherByOrderId(String orderId);
 
 }

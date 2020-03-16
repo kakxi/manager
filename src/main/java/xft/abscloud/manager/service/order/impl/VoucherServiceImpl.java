@@ -127,4 +127,15 @@ public class VoucherServiceImpl implements IVoucherService{
 		return str;
 	}
 
+	/**
+	 * 根据订单号查询凭证
+	 */
+	@Override
+	public AbsVoucher queryVoucherByOrderId(String orderId) {
+		
+		AbsVoucher voucher = absVoucherMapper.queryVoucherByOrderId(orderId);
+		
+		return voucher;
+	}
+
 }

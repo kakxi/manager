@@ -44,4 +44,11 @@ public interface AbsVoucherMapper extends MyMapper<AbsVoucher>{
 	 */
 	public void editVoucher(@Param("entity")AbsVoucher absVoucher);
 
+	/**
+	 * 根据订单号查询凭证
+	 * @param orderId
+	 * @return
+	 */
+	public AbsVoucher queryVoucherByOrderId(String orderId);
+
 }
