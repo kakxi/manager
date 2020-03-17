@@ -345,4 +345,19 @@ public class VoucherController {
         }
         return rtn;
     }
+   
+    @RequestMapping("/queryVoucherByOrderId")
+    public @ResponseBody JsonResult queryVoucherByOrderId(String orderId) {
+    	
+    	try {
+    		if( orderId == null) {
+				throw new BusinessException("订单id不能为空！");
+			}
+    		AbsVoucher absVoucher = voucherService.queryVoucherByOrderId(orderId);
+    		return JsonResult.build(200, "查询成功",absVoucher);
+    	}catch(BusinessException e) {
+    		log.error(e.getMessage());
+    		return JsonResult.errorException(e.getMessage());
+    	}
+    }
 }

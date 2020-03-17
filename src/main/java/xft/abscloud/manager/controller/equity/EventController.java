@@ -1,23 +1,29 @@
 package xft.abscloud.manager.controller.equity;
 
-import cn.hutool.core.bean.BeanUtil;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.github.pagehelper.PageInfo;
+
+import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.exception.BusinessException;
-import xft.abscloud.manager.pojo.Equity;
 import xft.abscloud.manager.pojo.EquitySpend;
 import xft.abscloud.manager.pojo.Event;
 import xft.abscloud.manager.pojo.EventSignin;
 import xft.abscloud.manager.service.equity.EquitySpendService;
 import xft.abscloud.manager.service.equity.EventService;
 import xft.abscloud.manager.service.equity.EventSigninService;
-
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @Slf4j
