@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.druid.util.StringUtils;
-
 import xft.abscloud.manager.enums.ApplyEnum;
 import xft.abscloud.manager.enums.OrderStatusEnum;
 import xft.abscloud.manager.enums.PayTypeEnum;
@@ -73,13 +71,13 @@ public class VoucherServiceImpl implements IVoucherService{
 	public List<AbsVoucher> queryCurrentUserVoucher(String userId) {
 		
 		List<AbsVoucher> voucherList = absVoucherMapper.queryCurrentUserVoucher(userId);
-		if(voucherList !=null && voucherList.size()>0) {
-			for(AbsVoucher voucher : voucherList) {
-				String applyStatus = voucher.getApplyStatus();
-				String newApplyStatus = this.transferApplyStatus(applyStatus);
-				voucher.setApplyStatus(newApplyStatus);
-			}
-		}
+//		if(voucherList !=null && voucherList.size()>0) {
+//			for(AbsVoucher voucher : voucherList) {
+//				String applyStatus = voucher.getApplyStatus();
+//				String newApplyStatus = this.transferApplyStatus(applyStatus);
+//				voucher.setApplyStatus(newApplyStatus);
+//			}
+//		}
 		
 		return voucherList;
 	}
@@ -106,26 +104,26 @@ public class VoucherServiceImpl implements IVoucherService{
 	}
 	
 	
-	private String transferApplyStatus(String applyStatus) {
-		String str = null;
-		if(!StringUtils.isEmpty(applyStatus)) {
-			switch (applyStatus) {
-			case "0":
-				str = ApplyEnum.UN_APPLY.getValue();
-				break;
-			case "1":
-				str = ApplyEnum.APPLY.getValue();
-				break;
-			case "2":
-				str =  ApplyEnum.REFUSED.getValue();
-				break;
-			default: 
-				str = ApplyEnum.UN_APPLY.getValue();
-				break;
-			}
-		}
-		return str;
-	}
+//	private String transferApplyStatus(String applyStatus) {
+//		String str = null;
+//		if(!StringUtils.isEmpty(applyStatus)) {
+//			switch (applyStatus) {
+//			case "0":
+//				str = ApplyEnum.UN_APPLY.getValue();
+//				break;
+//			case "1":
+//				str = ApplyEnum.APPLY.getValue();
+//				break;
+//			case "2":
+//				str =  ApplyEnum.REFUSED.getValue();
+//				break;
+//			default: 
+//				str = ApplyEnum.UN_APPLY.getValue();
+//				break;
+//			}
+//		}
+//		return str;
+//	}
 
 	/**
 	 * 根据订单号查询凭证

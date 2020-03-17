@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.druid.util.StringUtils;
-
 import xft.abscloud.manager.enums.OrderStatusEnum;
 import xft.abscloud.manager.enums.PayResultEnum;
 import xft.abscloud.manager.enums.PayTypeEnum;
@@ -49,22 +47,22 @@ public class OrderServiceImpl implements IOrderService{
 	public List<AbsOrder> queryOderList(String userId, String orderId, String orderStatus) {
 		
 		List<AbsOrder> orderList =  absOrderMapper.queryOrderList(userId, orderId, orderStatus);
-		this.checkList(orderList);
+//		this.checkList(orderList);
 		return orderList;
 	}
 	
-	public void checkList(List<AbsOrder> orderList) {
-		if(orderList !=null && orderList.size()>0) {
-			for(AbsOrder absOrder : orderList) {
-				String orderStatus1 = absOrder.getOrderStatus();
-				String newOrderStatus = transferOrderStatus(orderStatus1);
-				absOrder.setOrderStatus(newOrderStatus);
-				String payType = absOrder.getPayType();
-				String newPayType = OrderUtil.transferPayType(payType);
-				absOrder.setPayType(newPayType);
-			}
-		}
-	}
+//	public void checkList(List<AbsOrder> orderList) {
+//		if(orderList !=null && orderList.size()>0) {
+//			for(AbsOrder absOrder : orderList) {
+//				String orderStatus1 = absOrder.getOrderStatus();
+//				String newOrderStatus = transferOrderStatus(orderStatus1);
+//				absOrder.setOrderStatus(newOrderStatus);
+//				String payType = absOrder.getPayType();
+//				String newPayType = OrderUtil.transferPayType(payType);
+//				absOrder.setPayType(newPayType);
+//			}
+//		}
+//	}
 
 	/**
 	 * 更新订单支付状态
@@ -145,26 +143,26 @@ public class OrderServiceImpl implements IOrderService{
 		expenseService.addAbsExpense(absExpense);
 	}
 
-	private String transferOrderStatus(String orderStatus) {
-		String str = null;
-		if(!StringUtils.isEmpty(orderStatus)) {
-			switch (orderStatus) {
-			case "0":
-				str = OrderStatusEnum.UN_PAY.getValue();
-				break;
-			case "1":
-				str = OrderStatusEnum.PAY.getValue();
-				break;
-			case "2":
-				str =  OrderStatusEnum.CANCEL.getValue();
-				break;
-			default: 
-				str = OrderStatusEnum.UN_PAY.getValue();
-				break;
-			}
-		}
-		return str;
-	}
+//	private String transferOrderStatus(String orderStatus) {
+//		String str = null;
+//		if(!StringUtils.isEmpty(orderStatus)) {
+//			switch (orderStatus) {
+//			case "0":
+//				str = OrderStatusEnum.UN_PAY.getValue();
+//				break;
+//			case "1":
+//				str = OrderStatusEnum.PAY.getValue();
+//				break;
+//			case "2":
+//				str =  OrderStatusEnum.CANCEL.getValue();
+//				break;
+//			default: 
+//				str = OrderStatusEnum.UN_PAY.getValue();
+//				break;
+//			}
+//		}
+//		return str;
+//	}
 
 	/**
 	 * 查询可以开发票的订单

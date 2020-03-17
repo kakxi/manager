@@ -44,26 +44,26 @@ public class OrderUtil {
 		return strNum;
 	}
 	
-	public static String transferPayType(String payType) {
-		String str = null;
-		if(!StringUtils.isEmpty(payType)) {
-			switch (payType) {
-			case "0101":
-				str = PayTypeEnum.WX_PAY.getValue();
-				break;
-			case "0102":
-				str = PayTypeEnum.ALIPAY.getValue();
-				break;
-			case "02":
-				str =  PayTypeEnum.UN_ONLINE.getValue();
-				break;
-			default: 
-				str = PayTypeEnum.UN_ONLINE.getValue();
-				break;
-			}
-		}
-		return str;
-	}
+//	public static String transferPayType(String payType) {
+//		String str = null;
+//		if(!StringUtils.isEmpty(payType)) {
+//			switch (payType) {
+//			case "0101":
+//				str = PayTypeEnum.WX_PAY.getValue();
+//				break;
+//			case "0102":
+//				str = PayTypeEnum.ALIPAY.getValue();
+//				break;
+//			case "02":
+//				str =  PayTypeEnum.UN_ONLINE.getValue();
+//				break;
+//			default: 
+//				str = PayTypeEnum.UN_ONLINE.getValue();
+//				break;
+//			}
+//		}
+//		return str;
+//	}
 	
 	public static void main(String[] args) {
 		System.out.println(getRadomNum());
