@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xft.abscloud.manager.mapper.DataDictMapper">
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.DataDict">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dict_key" jdbcType="VARCHAR" property="dictKey" />
+    <result column="dict_value" jdbcType="VARCHAR" property="dictValue" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+  </resultMap>
+
+  <select id="selectDataDictByKey" parameterType="java.lang.String" resultType="java.util.Map">
+    select t.dict_key,t.dict_value from abs_data_dict t where t.id = #{id}
+  </select>
+  
+  <select id="queryDictByKeys" parameterType="java.util.List" resultType="java.util.Map">
+    select t.id,t.dict_key,t.dict_value from abs_data_dict t
+    	where t.id in
+    	<foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+	  		#{id}
+		</foreach>
+  </select>
+  
+  <!-- 查询单条记录 -->
+  <select id="queryDict" parameterType="xft.abscloud.manager.pojo.DataDict" resultMap="BaseResultMap">
+    select * from abs_data_dict where id = #{id} and dict_key = #{dictKey}
+  </select>
+  
+  <!-- 查询所有数据 -->
+  <select id="queryAllDictList" resultType="xft.abscloud.manager.pojo.DataDict" resultMap="BaseResultMap">
+  		select * from abs_data_dict t order by id asc
+  </select>
+  
+  <!-- 条件查询 -->
+  <select id = "queryDictList" parameterType="xft.abscloud.manager.pojo.DataDict" resultMap="BaseResultMap">
+  	select * from abs_data_dict
+  	<where>
+  		<if test="id !=null and id !=''">
+  			and id like concat('%', #{id}, '%')
+  		</if>
+  		<if test="dictKey !=null and dictKey !=''">
+  			and dict_key = #{dictKey}
+  		</if>
+  		<if test="dictValue !=null and dictValue !=''">
+  			and dict_value like concat('%', #{dictValue}, '%')
+  		</if>
+  		<if test="desc !=null and desc !=''">
+  			and desc like concat('%', #{desc}, '%')
+  		</if>
+  	</where>
+  	order by id asc
+  </select>
+  
+  <!-- 新增 -->
+	<insert id="addDict" parameterType="xft.abscloud.manager.pojo.DataDict" >
+	    insert into abs_data_dict(id,dict_key,dict_value,`desc`)
+	    values(
+	           #{id},
+	           #{dictKey},
+	           #{dictValue},
+	           #{desc}
+	           )
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="updateDict" parameterType="xft.abscloud.manager.pojo.DataDict" >
+	     UPDATE abs_data_dict
+	     SET dict_value = #{dictValue},
+	         `desc` = #{desc}
+	   WHERE id = #{id} and dict_key = #{dictKey}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteDict" parameterType="xft.abscloud.manager.pojo.DataDict" >
+	     delete from abs_data_dict where id = #{id} and dict_key = #{dictKey}
+	</delete>
+  
+</mapper>

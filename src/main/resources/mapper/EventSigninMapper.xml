@@ -21,7 +21,7 @@
     )
   </insert>
 
-  <select id="queryListByEventId" parameterType="java.lang.String" resultType="java.util.Map">
+  <select id="queryListByEventId" parameterType="java.lang.Integer" resultType="java.util.Map">
     select
       s.id as signinId,
       s.member_id as memberId,
