@@ -376,7 +376,7 @@ public class VoucherController {
      * @param request
      * @param response
      */
-    @GetMapping(value = "/showFile")
+    @GetMapping(value = "/showFile/group1/**")
     public void showFileByFileUrl(HttpServletRequest request, HttpServletResponse response) {
 
         response.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=31536000");
