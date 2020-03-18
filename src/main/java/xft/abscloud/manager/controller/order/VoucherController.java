@@ -1,20 +1,27 @@
 package xft.abscloud.manager.controller.order;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
@@ -53,6 +60,8 @@ public class VoucherController {
 	
 	@Autowired
     private FastDFSClient fileClient;
+	
+	private UrlPathHelper urlPathHelper = new UrlPathHelper();
 	/**
 	 * 用户申请线下支付凭证
 	 * @param absVoucher
@@ -251,8 +260,8 @@ public class VoucherController {
     @PostMapping(value = "/downloadVoucher")
     public @ResponseBody void download(HttpServletRequest request, HttpServletResponse response) {
         String fileUrl = request.getParameter("fileUrl");
-        String fileName = request.getParameter("fileName");
-        download(fileName, fileUrl, request, response);
+//        String fileName = request.getParameter("fileName");
+        download(null, fileUrl, request, response);
     }
 
     public void download(String fileName, String fileUrl, HttpServletRequest request,
@@ -354,10 +363,37 @@ public class VoucherController {
 				throw new BusinessException("订单id不能为空！");
 			}
     		AbsVoucher absVoucher = voucherService.queryVoucherByOrderId(orderId);
+    		
     		return JsonResult.build(200, "查询成功",absVoucher);
     	}catch(BusinessException e) {
     		log.error(e.getMessage());
     		return JsonResult.errorException(e.getMessage());
     	}
+    }
+    
+    /**
+     * 显示图片
+     * @param request
+     * @param response
+     */
+    @GetMapping(value = "/showFile")
+    public void showFileByFileUrl(HttpServletRequest request, HttpServletResponse response) {
+
+        response.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=31536000");
+        String reqPath = urlPathHelper.getLookupPathForRequest(request);
+        byte[] imgBytes = new byte[]{};
+        try {
+            // storageFilePath like 'group1/M00/00/01/xx.jpg'
+            String fileType = reqPath.substring(reqPath.lastIndexOf(".")+1);
+            response.setContentType("image/"+fileType);
+
+            String storageFilePath = reqPath.substring(reqPath.indexOf("/showFile/") + "/showFile/".length());
+            imgBytes = fileClient.getFile(storageFilePath);
+            InputStream is = new ByteArrayInputStream(imgBytes);
+            BufferedImage bi= ImageIO.read(is);
+            ImageIO.write(bi, fileType, response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
