@@ -110,7 +110,7 @@ public class EquityController {
             Equity equity = BeanUtil.mapToBean(params, Equity.class, true);
             // equity.setState("1");
             PageInfo<Equity> result = equityService.queryPage(equity, pageNum, pageSize);
-            return JsonResult.ok(result.getList());
+            return JsonResult.build(200, "查询成功", result);
         } catch (Exception e) {
             log.error(e.getMessage());
             return JsonResult.errorMsg("查询异常");
