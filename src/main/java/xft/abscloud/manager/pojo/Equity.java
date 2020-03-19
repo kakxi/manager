@@ -1,7 +1,8 @@
 package xft.abscloud.manager.pojo;
 
-import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "abs_equity")
 public class Equity {
@@ -74,7 +75,7 @@ public class Equity {
      * 创建时间
      */
     @Column(name = "create_time")
-    private Date createTime;
+    private String createTime;
 
     /**
      * 获取主键
@@ -279,7 +280,7 @@ public class Equity {
      *
      * @return create_time - 创建时间
      */
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
@@ -288,7 +289,7 @@ public class Equity {
      *
      * @param createTime 创建时间
      */
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

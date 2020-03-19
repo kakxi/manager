@@ -1,12 +1,13 @@
 package xft.abscloud.manager.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
 import xft.abscloud.manager.generator.MyMapper;
 import xft.abscloud.manager.pojo.AbsInvoice;
 
+import java.util.List;
+
+@Repository
 public interface AbsInvoiceMapper extends MyMapper<AbsInvoice>{
 
 	/**
@@ -14,7 +15,7 @@ public interface AbsInvoiceMapper extends MyMapper<AbsInvoice>{
 	 * @param userId
 	 * @return
 	 */
-	public List<AbsInvoice> queryInvoice(String userId, String invoiceStatus);
+	public List<AbsInvoice> queryInvoice(@Param("userId") String userId, @Param("invoiceStatus")String invoiceStatus);
 
 	/**
 	 * 发票审核
@@ -22,7 +23,7 @@ public interface AbsInvoiceMapper extends MyMapper<AbsInvoice>{
 	 * @param invoiceStatus
 	 * @param updateTime
 	 */
-	public void updateInvoiceStatus(String invoiceId, String invoiceStatus, String updateTime, String remark);
+	public void updateInvoiceStatus(@Param("invoiceId")String invoiceId, @Param("invoiceStatus")String invoiceStatus, @Param("updateTime")String updateTime, @Param("remark")String remark);
 
 	/**
 	 * 发票申请
@@ -35,13 +36,13 @@ public interface AbsInvoiceMapper extends MyMapper<AbsInvoice>{
 	 * @param orderId
 	 * @return
 	 */
-	public AbsInvoice queryInvoiceByOrderId(String orderId);
+	public AbsInvoice queryInvoiceByOrderId(@Param("orderId")String orderId);
 
 	/**
 	 * 查询发票
 	 * @param invoiceId
 	 * @return
 	 */
-	public AbsInvoice queryInvoiceById(String invoiceId);
+	public AbsInvoice queryInvoiceById(@Param("invoiceId")String invoiceId);
 
 }

@@ -1,12 +1,9 @@
 package xft.abscloud.manager.service.order.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import xft.abscloud.manager.enums.ApplyEnum;
 import xft.abscloud.manager.enums.OrderStatusEnum;
 import xft.abscloud.manager.enums.PayTypeEnum;
@@ -15,6 +12,8 @@ import xft.abscloud.manager.pojo.AbsVoucher;
 import xft.abscloud.manager.service.order.IOrderService;
 import xft.abscloud.manager.service.order.IVoucherService;
 import xft.abscloud.manager.util.OrderUtil;
+
+import java.util.List;
 
 @Service
 public class VoucherServiceImpl implements IVoucherService{
@@ -54,7 +53,9 @@ public class VoucherServiceImpl implements IVoucherService{
 		if(count>0 && applyStatus.equals(ApplyEnum.APPLY.getKey())) {
 			//更新订单状态
 			String payType = PayTypeEnum.UN_ONLINE.getKey();
-			orderService.updateOrderStatus(absVoucher.getOrderId(), OrderStatusEnum.PAY.getKey(),payType);
+			//支付时间
+			String payTime = absVoucher.getPayTime();
+			orderService.updateOrderStatus(absVoucher.getOrderId(), OrderStatusEnum.PAY.getKey(),payType,payTime);
 			
 			//添加消费记录
 			orderService.addExpense(orderId);

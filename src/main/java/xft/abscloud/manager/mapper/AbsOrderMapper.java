@@ -1,12 +1,13 @@
 package xft.abscloud.manager.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
 import xft.abscloud.manager.generator.MyMapper;
 import xft.abscloud.manager.pojo.AbsOrder;
 
+import java.util.List;
+
+@Repository
 public interface AbsOrderMapper extends MyMapper<AbsOrder>{
 
 	/**
@@ -14,7 +15,7 @@ public interface AbsOrderMapper extends MyMapper<AbsOrder>{
 	 * @param orderId
 	 * @param orderStatus
 	 */
-	public void updateOrderStatus(String orderId, String orderStatus, String payTime, String payType);
+	public void updateOrderStatus(@Param("orderId")String orderId, @Param("orderStatus")String orderStatus, @Param("payTime")String payTime, @Param("payType")String payType);
 
 	/**
 	 * 创建订单
@@ -28,22 +29,21 @@ public interface AbsOrderMapper extends MyMapper<AbsOrder>{
 	 * @param orderStatus
 	 * @return
 	 */
-	public List<AbsOrder> queryOrderList(String userId, String orderId, String orderStatus);
+	public List<AbsOrder> queryOrderList(@Param("userId")String userId, @Param("orderId")String orderId, @Param("orderStatus")String orderStatus);
 
 	/**
 	 * 通过订单号查询订单
 	 * @param orderId
 	 * @return
 	 */
-	public AbsOrder queryOrderById(String orderId);
+	public AbsOrder queryOrderById(@Param("orderId")String orderId);
 
 	/**
 	 * 取消订单
 	 * @param orderId
 	 * @param orderStatus
-	 * @param updateTime
 	 */
-	public void cancelOrder(String orderId, String orderStatus);
+	public void cancelOrder(@Param("orderId")String orderId, @Param("orderStatus")String orderStatus);
 
 	/**
 	 * 查询可以开发票的订单
@@ -52,6 +52,6 @@ public interface AbsOrderMapper extends MyMapper<AbsOrder>{
 	 * @param orderStatus 
 	 * @return
 	 */
-	public List<AbsOrder> queryOrderByfp(String userId, String orderId, String orderStatus);
+	public List<AbsOrder> queryOrderByfp(@Param("userId") String userId, @Param("orderId")String orderId, @Param("orderStatus")String orderStatus);
 
 }

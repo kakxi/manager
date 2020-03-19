@@ -7,6 +7,7 @@ import xft.abscloud.manager.exception.BusinessException;
 import xft.abscloud.manager.mapper.EquityMapper;
 import xft.abscloud.manager.pojo.Equity;
 import xft.abscloud.manager.service.equity.EquityService;
+import xft.abscloud.manager.util.OrderUtil;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class EquityServiceImpl implements EquityService {
             throw new BusinessException("系统中已存在相同编码的权益");
         }
 //        equity.setState("1");
-        equity.setCreateTime(new Date());
+        equity.setCreateTime(OrderUtil.getCurrentDay());
         return equityMapper.add(equity);
     }
 

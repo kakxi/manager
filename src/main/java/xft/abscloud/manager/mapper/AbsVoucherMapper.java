@@ -1,12 +1,13 @@
 package xft.abscloud.manager.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
 import xft.abscloud.manager.generator.MyMapper;
 import xft.abscloud.manager.pojo.AbsVoucher;
 
+import java.util.List;
+
+@Repository
 public interface AbsVoucherMapper extends MyMapper<AbsVoucher>{
 	
 	/**
@@ -26,7 +27,7 @@ public interface AbsVoucherMapper extends MyMapper<AbsVoucher>{
 	 * @param userId
 	 * @return
 	 */
-	public List<AbsVoucher> queryCurrentUserVoucher(String userId);
+	public List<AbsVoucher> queryCurrentUserVoucher(@Param("userId")String userId);
 
 	/**
 	 * 线下消费凭证审核拒绝
@@ -35,8 +36,7 @@ public interface AbsVoucherMapper extends MyMapper<AbsVoucher>{
 	 * @param updateTime
 	 * @param applyStatus
 	 */
-	public void applyConsumptionVoucherRefued(String voucherId, String auditOpinion, String updateTime,
-			String applyStatus);
+	public void applyConsumptionVoucherRefued(@Param("voucherId")String voucherId, @Param("auditOpinion")String auditOpinion, @Param("updateTime")String updateTime,@Param("applyStatus")String applyStatus);
 
 	/**
 	 * 修改凭证
@@ -49,6 +49,6 @@ public interface AbsVoucherMapper extends MyMapper<AbsVoucher>{
 	 * @param orderId
 	 * @return
 	 */
-	public AbsVoucher queryVoucherByOrderId(String orderId);
+	public AbsVoucher queryVoucherByOrderId(@Param("orderId")String orderId);
 
 }

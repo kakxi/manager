@@ -4,10 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-import com.alibaba.druid.util.StringUtils;
-
-import xft.abscloud.manager.enums.PayTypeEnum;
-
 public class OrderUtil {
 
 	//生成订单号
@@ -27,6 +23,14 @@ public class OrderUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		
+		return sdf.format(date);
+	}
+
+	//获取当前时间
+	public static String getCurrentDay() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+
 		return sdf.format(date);
 	}
 	

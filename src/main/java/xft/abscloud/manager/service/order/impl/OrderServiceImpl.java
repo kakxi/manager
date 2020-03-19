@@ -1,12 +1,9 @@
 package xft.abscloud.manager.service.order.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import xft.abscloud.manager.enums.OrderStatusEnum;
 import xft.abscloud.manager.enums.PayResultEnum;
 import xft.abscloud.manager.enums.PayTypeEnum;
@@ -16,6 +13,8 @@ import xft.abscloud.manager.pojo.AbsOrder;
 import xft.abscloud.manager.service.order.IExpenseService;
 import xft.abscloud.manager.service.order.IOrderService;
 import xft.abscloud.manager.util.OrderUtil;
+
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements IOrderService{
@@ -68,11 +67,9 @@ public class OrderServiceImpl implements IOrderService{
 	 * 更新订单支付状态
 	 */
 	@Override
-	public void updateOrderStatus(String orderId, String orderStatus, String payType) {
+	public void updateOrderStatus(String orderId, String orderStatus, String payType, String payTime) {
 		
-		//支付时间
-		String payTime = OrderUtil.getCurrentTime();
-		
+
 		absOrderMapper.updateOrderStatus(orderId,orderStatus,payTime,payType);
 	}
 
@@ -112,8 +109,10 @@ public class OrderServiceImpl implements IOrderService{
 		//修改订单
 		String orderStatus = OrderStatusEnum.PAY.getKey();
 		String payType = PayTypeEnum.WX_PAY.getKey();
+		//支付时间
+		String payTime = OrderUtil.getCurrentTime();
 		//修改订单
-		this.updateOrderStatus(orderId, orderStatus, payType);
+		this.updateOrderStatus(orderId, orderStatus, payType,payTime);
 		
 		//添加消费记录
 		this.addExpense(orderId);

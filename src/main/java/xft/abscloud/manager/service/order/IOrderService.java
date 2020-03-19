@@ -1,8 +1,9 @@
 package xft.abscloud.manager.service.order;
 
-import java.util.List;
-
 import xft.abscloud.manager.pojo.AbsOrder;
+import xft.abscloud.manager.util.OrderUtil;
+
+import java.util.List;
 
 public interface IOrderService {
 
@@ -27,7 +28,7 @@ public interface IOrderService {
 	 * @param orderStatus
 	 * @param payType
 	 */
-	public void updateOrderStatus(String orderId, String orderStatus, String payType);
+	public void updateOrderStatus(String orderId, String orderStatus, String payType, String payTime);
 
 	/**
 	 * 修改订单

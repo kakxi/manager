@@ -1,33 +1,14 @@
 package xft.abscloud.manager.controller.order;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.mail.internet.MimeUtility;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UrlPathHelper;
-
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UrlPathHelper;
 import xft.abscloud.manager.config.FastDFSClient;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.enums.ApplyEnum;
@@ -38,6 +19,15 @@ import xft.abscloud.manager.pojo.AbsVoucher;
 import xft.abscloud.manager.service.file.FileInfoService;
 import xft.abscloud.manager.service.order.IOrderService;
 import xft.abscloud.manager.service.order.IVoucherService;
+
+import javax.imageio.ImageIO;
+import javax.mail.internet.MimeUtility;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * 凭证
@@ -173,7 +163,7 @@ public class VoucherController {
 			}
 			String applyStatus = absVoucher.getApplyStatus();
 			if(applyStatus.equals(ApplyEnum.APPLY.getKey())) {
-				throw new BusinessException("ID为【"+voucherId+"】的凭证已经审核通过,不能修改！");
+				throw new BusinessException("订单ID为【"+absVoucher.getOrderId()+"】的凭证已经审核通过,不能修改！");
 			}
 			voucherService.editVoucher(absVoucher);
 			return JsonResult.okMsg("修改成功");
