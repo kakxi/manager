@@ -1,6 +1,9 @@
 package xft.abscloud.manager.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import xft.abscloud.manager.dto.EquityVo;
+import xft.abscloud.manager.dto.PackEquityDto;
 import xft.abscloud.manager.generator.MyMapper;
 import xft.abscloud.manager.pojo.LevelEquity;
 
@@ -20,5 +23,7 @@ public interface LevelEquityMapper extends MyMapper<LevelEquity> {
      * 查询所有套餐
      * @return
      */
-    public List<Map<String,Object>> queryLevelEquityPage();
+    public List<PackEquityDto> queryLevelEquityPage();
+
+    public List<EquityVo> queryEquityVoList(@Param("levelId") String levelId);
 }

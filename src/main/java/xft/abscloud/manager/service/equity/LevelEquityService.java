@@ -1,5 +1,6 @@
 package xft.abscloud.manager.service.equity;
 
+import xft.abscloud.manager.dto.PackEquityDto;
 import xft.abscloud.manager.pojo.LevelEquity;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface LevelEquityService {
      * 查询套餐
      * @return
      */
-    public List<Map<String, Object>> queryLevelEquityPage();
+    public List<PackEquityDto> queryLevelEquityPage();
 }

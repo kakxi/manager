@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.dto.PackDto;
+import xft.abscloud.manager.dto.PackEquityDto;
 import xft.abscloud.manager.exception.BusinessException;
 import xft.abscloud.manager.service.equity.LevelEquityService;
 
@@ -65,7 +66,7 @@ public class LevelEquityController {
     public @ResponseBody JsonResult queryLevelEquity(){ //Integer pageNum, Integer pageSize
 
 //        PageHelper.startPage(pageNum, pageSize);
-        List<Map<String, Object>> levelEquitList = levelEquityService.queryLevelEquityPage();
+        List<PackEquityDto> levelEquitList = levelEquityService.queryLevelEquityPage();
 
 //        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(levelEquitList);
 
