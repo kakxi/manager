@@ -34,4 +34,14 @@ public class LevelEquityServiceImpl implements LevelEquityService {
     public int delete(String levelId) {
         return levelEquityMapper.deleteByLevelId(levelId);
     }
+
+    /**
+     * 查询套餐
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> queryLevelEquityPage() {
+
+        return levelEquityMapper.queryLevelEquityPage();
+    }
 }

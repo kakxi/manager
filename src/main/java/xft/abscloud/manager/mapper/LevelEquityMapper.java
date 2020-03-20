@@ -15,4 +15,10 @@ public interface LevelEquityMapper extends MyMapper<LevelEquity> {
     List<Map<String,Object>> queryEquityList(String levelId);
 
     int deleteByLevelId(String levelId);
+
+    /**
+     * 查询所有套餐
+     * @return
+     */
+    public List<Map<String,Object>> queryLevelEquityPage();
 }

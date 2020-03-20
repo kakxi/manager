@@ -12,4 +12,10 @@ public interface LevelEquityService {
     List<Map<String, Object>> query(String levelId);
 
     int delete(String levelId);
+
+    /**
+     * 查询套餐
+     * @return
+     */
+    public List<Map<String, Object>> queryLevelEquityPage();
 }

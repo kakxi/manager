@@ -57,4 +57,25 @@
       where level_id =#{levelId}
   </delete>
 
+
+  <!--查询所有套餐-->
+  <select id="queryLevelEquityPage" resultType="java.util.Map">
+      SELECT
+        l.level_id as levelId,
+        a.level_name as levelName,
+        l.equity_id as equityId,
+        l.usage_counter as usageCounter,
+        l.order as `order`,
+        e.equity_code as equityCode,
+        e.equity_name as equityName,
+        e.equity_desc as equityDesc,
+        e.equity_type as equityType,
+        e.equity_prop as equityProp,
+        e.perm_code as permCode,
+        e.spend_code as spendCode
+	FROM abs_level_equity l
+	LEFT JOIN abs_equity e on l.equity_id = e.equity_id
+	LEFT JOIN abs_member_level a ON a.id = l.level_id
+  </select>
+
 </mapper>
