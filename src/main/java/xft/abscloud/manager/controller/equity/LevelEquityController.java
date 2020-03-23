@@ -63,12 +63,10 @@ public class LevelEquityController {
      * @return
      */
     @RequestMapping("/queryLevelEquity")
-    public @ResponseBody JsonResult queryLevelEquity(){ //Integer pageNum, Integer pageSize
+    public @ResponseBody JsonResult queryLevelEquity(){
 
-//        PageHelper.startPage(pageNum, pageSize);
         List<PackEquityDto> levelEquitList = levelEquityService.queryLevelEquityPage();
 
-//        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(levelEquitList);
 
         return JsonResult.build(200, "套餐查询成功", levelEquitList);
 

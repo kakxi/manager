@@ -11,7 +11,7 @@
     <result column="equity_desc" property="equityDesc" jdbcType="VARCHAR" />
     <result column="equity_type" property="equityType" jdbcType="VARCHAR" />
     <result column="equity_prop" property="equityProp" jdbcType="VARCHAR" />
-    <result column="counter" property="counter" jdbcType="TINYINT" />
+    <result column="usage_counter" property="usageCounter" jdbcType="TINYINT" />
     <result column="perm_code" property="permCode" jdbcType="VARCHAR" />
     <result column="spend_code" property="spendCode" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="VARCHAR" />

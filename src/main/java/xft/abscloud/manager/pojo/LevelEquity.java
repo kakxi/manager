@@ -1,7 +1,9 @@
 package xft.abscloud.manager.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "abs_level_equity")
 public class LevelEquity {
@@ -27,7 +29,7 @@ public class LevelEquity {
      * 消费次数
      */
     @Column(name = "usage_counter")
-    private Byte usageCounter;
+    private int usageCounter;
 
     /**
      * 序号
@@ -99,7 +101,7 @@ public class LevelEquity {
      *
      * @return usage_counter - 消费次数
      */
-    public Byte getUsageCounter() {
+    public int getUsageCounter() {
         return usageCounter;
     }
 
@@ -108,7 +110,7 @@ public class LevelEquity {
      *
      * @param usageCounter 消费次数
      */
-    public void setUsageCounter(Byte usageCounter) {
+    public void setUsageCounter(int usageCounter) {
         this.usageCounter = usageCounter;
     }
 

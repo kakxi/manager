@@ -46,7 +46,8 @@ public class Equity {
     /**
      * 默认次数
      */
-    private Integer counter;
+    @Column(name = "usage_counter")
+    private Integer usageCounter;
 
     /**
      * 权限控制标识
@@ -188,19 +189,19 @@ public class Equity {
     /**
      * 获取默认次数
      *
-     * @return counter - 默认次数
+     * @return usageCounter - 默认次数
      */
-    public Integer getCounter() {
-        return counter;
+    public Integer getUsageCounter() {
+        return usageCounter;
     }
 
     /**
      * 设置默认次数
      *
-     * @param counter 默认次数
+     * @param usageCounter 默认次数
      */
-    public void setCounter(Integer counter) {
-        this.counter = counter;
+    public void setUsageCounter(Integer usageCounter) {
+        this.usageCounter = usageCounter;
     }
 
     /**
