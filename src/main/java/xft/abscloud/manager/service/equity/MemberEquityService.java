@@ -38,4 +38,6 @@ public interface MemberEquityService {
      * @return
      */
     public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize);
+
+    public void updateMemberEquity(MemberEquityDto memberEquityDto);
 }

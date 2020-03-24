@@ -33,4 +33,10 @@ public interface MemberEquityMapper extends MyMapper<MemberEquity> {
     MemberEquity query(Integer id);
 
     public List<MemberEquityDto> queryAllMember();
+
+    /**
+     * 删除会员权益
+     * @param memberId
+     */
+    public void deleteMemberEquityById(@Param("memberId") String memberId);
 }

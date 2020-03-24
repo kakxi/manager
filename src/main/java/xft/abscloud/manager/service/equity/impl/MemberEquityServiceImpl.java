@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import xft.abscloud.manager.dto.MemberEquityDto;
 import xft.abscloud.manager.mapper.MemberEquityMapper;
 import xft.abscloud.manager.pojo.MemberEquity;
@@ -122,5 +124,17 @@ public class MemberEquityServiceImpl implements MemberEquityService {
         }
 
         return pageInfo;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Override
+    public void updateMemberEquity(MemberEquityDto memberEquityDto) {
+
+        String memberId = memberEquityDto.getLevelId();
+        //先删除
+        memberEquityMapper.deleteMemberEquityById(memberId);
+
+        //再插入
+        memberEquityMapper.insertForeach(memberEquityDto.getMemberEquityList());
     }
 }

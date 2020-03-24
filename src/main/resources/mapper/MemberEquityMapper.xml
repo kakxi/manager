@@ -117,4 +117,10 @@
     ORDER BY u.create_time DESC
   </select>
 
+  <!--根据会员ID删除权益-->
+  <delete id="deleteMemberEquityById" parameterType="java.lang.String">
+    delete from abs_member_equity
+    where member_id=#{memberId}
+  </delete>
+
 </mapper>

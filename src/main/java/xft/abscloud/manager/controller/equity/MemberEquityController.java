@@ -108,4 +108,22 @@ public class MemberEquityController {
 
         return JsonResult.build(200, "查询会员权益成功", pageInfo);
     }
+
+
+    /**
+     * 修改会员权益
+     * @param memberEquityDto
+     * @return
+     */
+    @RequestMapping("/updateMemberEquity")
+    public @ResponseBody JsonResult updateMemberEquity(MemberEquityDto memberEquityDto){
+
+        try {
+            memberEquityService.updateMemberEquity(memberEquityDto);
+            return JsonResult.ok("更新成功");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return JsonResult.errorMsg("系统错误");
+        }
+    }
 }
