@@ -117,7 +117,7 @@ public class MemberEquityServiceImpl implements MemberEquityService {
         PageInfo<MemberEquityDto> pageInfo = new PageInfo<>(absMemberUsers);
         List<MemberEquityDto> memberEquityDtos = new ArrayList<>();
         for(MemberEquityDto memberUser : absMemberUsers){
-            String memberId = memberUser.getLevelId();
+            String memberId = memberUser.getMemberId();
             List<MemberEquity> equityVoList = memberEquityMapper.queryListByMemberId(memberId);
             memberUser.setMemberEquityList(equityVoList);
             memberEquityDtos.add(memberUser);
@@ -130,7 +130,7 @@ public class MemberEquityServiceImpl implements MemberEquityService {
     @Override
     public void updateMemberEquity(MemberEquityDto memberEquityDto) {
 
-        String memberId = memberEquityDto.getLevelId();
+        String memberId = memberEquityDto.getMemberId();
         //先删除
         memberEquityMapper.deleteMemberEquityById(memberId);
 

@@ -110,7 +110,7 @@
   <!--查询所有会员-->
   <select id="queryAllMember" resultType="xft.abscloud.manager.dto.MemberEquityDto">
     select
-      u.id as levelId,
+      u.id as memberId,
       u.account_name as accountName,
       u.member_level as levelName
       from abs_member_user u

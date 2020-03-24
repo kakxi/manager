@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class MemberEquityDto {
 
-    private String levelId;//会员等级Id
+    private String memberId;//会员Id
 
     private String accountName;
 
@@ -17,12 +17,12 @@ public class MemberEquityDto {
 
     private List<MemberEquity> memberEquityList;
 
-    public String getLevelId() {
-        return levelId;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public void setLevelId(String levelId) {
-        this.levelId = levelId;
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public String getAccountName() {
