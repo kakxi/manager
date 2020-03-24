@@ -26,4 +26,5 @@ public interface LevelEquityMapper extends MyMapper<LevelEquity> {
     public List<PackEquityDto> queryLevelEquityPage();
 
     public List<EquityVo> queryEquityVoList(@Param("levelId") String levelId);
+
 }

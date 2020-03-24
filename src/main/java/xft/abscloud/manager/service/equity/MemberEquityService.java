@@ -1,5 +1,7 @@
 package xft.abscloud.manager.service.equity;
 
+import com.github.pagehelper.PageInfo;
+import xft.abscloud.manager.dto.MemberEquityDto;
 import xft.abscloud.manager.pojo.MemberEquity;
 
 import java.util.List;
@@ -28,4 +30,12 @@ public interface MemberEquityService {
 
     // 根据消费标识查询人员列表
     List<String> queryMemberListBySpendCode(String spendCode);
+
+    /**
+     * 查询会员权益
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize);
 }

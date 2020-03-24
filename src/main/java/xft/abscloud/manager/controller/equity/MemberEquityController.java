@@ -1,13 +1,10 @@
 package xft.abscloud.manager.controller.equity;
 
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xft.abscloud.manager.dto.JsonResult;
-import xft.abscloud.manager.exception.BusinessException;
-import xft.abscloud.manager.pojo.Equity;
+import xft.abscloud.manager.dto.MemberEquityDto;
 import xft.abscloud.manager.pojo.MemberEquity;
 import xft.abscloud.manager.service.equity.MemberEquityService;
 
@@ -94,5 +91,21 @@ public class MemberEquityController {
             log.error(e.getMessage());
             return JsonResult.errorMsg("系统错误");
         }
+    }
+
+
+    /**
+     * 查询会员权益
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/queryMemberEquityPage")
+    public @ResponseBody
+    JsonResult queryMemberEquityPage(Integer pageNum, Integer pageSize){
+
+        PageInfo<MemberEquityDto> pageInfo = memberEquityService.queryMemberEquityPage(pageNum, pageSize);
+
+        return JsonResult.build(200, "查询会员权益成功", pageInfo);
     }
 }

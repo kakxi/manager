@@ -107,4 +107,14 @@
         and s.status = '0' and s.equity_id is not null)
   </update>
 
+  <!--查询所有会员-->
+  <select id="queryAllMember" resultType="xft.abscloud.manager.dto.MemberEquityDto">
+    select
+      u.id as levelId,
+      u.account_name as accountName,
+      u.member_level as levelName
+      from abs_member_user u
+    ORDER BY u.create_time DESC
+  </select>
+
 </mapper>

@@ -2,8 +2,8 @@ package xft.abscloud.manager.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import xft.abscloud.manager.dto.MemberEquityDto;
 import xft.abscloud.manager.generator.MyMapper;
-import xft.abscloud.manager.pojo.Equity;
 import xft.abscloud.manager.pojo.MemberEquity;
 
 import java.util.List;
@@ -31,4 +31,6 @@ public interface MemberEquityMapper extends MyMapper<MemberEquity> {
     List<String> queryMemberListBySpendCode(String spendCode);
 
     MemberEquity query(Integer id);
+
+    public List<MemberEquityDto> queryAllMember();
 }

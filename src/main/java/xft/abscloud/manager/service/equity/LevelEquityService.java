@@ -19,4 +19,5 @@ public interface LevelEquityService {
      * @return
      */
     public List<PackEquityDto> queryLevelEquityPage();
+
 }

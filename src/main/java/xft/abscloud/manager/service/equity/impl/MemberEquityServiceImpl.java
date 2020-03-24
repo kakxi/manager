@@ -1,7 +1,10 @@
 package xft.abscloud.manager.service.equity.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import xft.abscloud.manager.dto.MemberEquityDto;
 import xft.abscloud.manager.mapper.MemberEquityMapper;
 import xft.abscloud.manager.pojo.MemberEquity;
 import xft.abscloud.manager.service.equity.LevelEquityService;
@@ -102,5 +105,22 @@ public class MemberEquityServiceImpl implements MemberEquityService {
     @Override
     public List<String> queryMemberListBySpendCode(String spendCode) {
         return memberEquityMapper.queryMemberListBySpendCode(spendCode);
+    }
+
+    @Override
+    public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<MemberEquityDto> absMemberUsers = memberEquityMapper.queryAllMember();
+        PageInfo<MemberEquityDto> pageInfo = new PageInfo<>(absMemberUsers);
+        List<MemberEquityDto> memberEquityDtos = new ArrayList<>();
+        for(MemberEquityDto memberUser : absMemberUsers){
+            String memberId = memberUser.getLevelId();
+            List<MemberEquity> equityVoList = memberEquityMapper.queryListByMemberId(memberId);
+            memberUser.setMemberEquityList(equityVoList);
+            memberEquityDtos.add(memberUser);
+        }
+
+        return pageInfo;
     }
 }

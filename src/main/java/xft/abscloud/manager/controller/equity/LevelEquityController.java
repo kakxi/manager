@@ -67,7 +67,6 @@ public class LevelEquityController {
 
         List<PackEquityDto> levelEquitList = levelEquityService.queryLevelEquityPage();
 
-
         return JsonResult.build(200, "套餐查询成功", levelEquitList);
 
     }

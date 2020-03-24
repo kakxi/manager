@@ -60,4 +60,5 @@ public class LevelEquityServiceImpl implements LevelEquityService {
 
         return listDto;
     }
+
 }
