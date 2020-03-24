@@ -110,10 +110,10 @@ public class MemberEquityServiceImpl implements MemberEquityService {
     }
 
     @Override
-    public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize) {
+    public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize, String accountName) {
 
         PageHelper.startPage(pageNum, pageSize);
-        List<MemberEquityDto> absMemberUsers = memberEquityMapper.queryAllMember();
+        List<MemberEquityDto> absMemberUsers = memberEquityMapper.queryAllMember(accountName);
         PageInfo<MemberEquityDto> pageInfo = new PageInfo<>(absMemberUsers);
         List<MemberEquityDto> memberEquityDtos = new ArrayList<>();
         for(MemberEquityDto memberUser : absMemberUsers){

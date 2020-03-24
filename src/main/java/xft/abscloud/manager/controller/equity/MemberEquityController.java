@@ -96,15 +96,16 @@ public class MemberEquityController {
 
     /**
      * 查询会员权益
+     * @param accountName 会员名
      * @param pageNum
      * @param pageSize
      * @return
      */
     @RequestMapping("/queryMemberEquityPage")
     public @ResponseBody
-    JsonResult queryMemberEquityPage(Integer pageNum, Integer pageSize){
+    JsonResult queryMemberEquityPage(Integer pageNum, Integer pageSize, String accountName){
 
-        PageInfo<MemberEquityDto> pageInfo = memberEquityService.queryMemberEquityPage(pageNum, pageSize);
+        PageInfo<MemberEquityDto> pageInfo = memberEquityService.queryMemberEquityPage(pageNum, pageSize,accountName);
 
         return JsonResult.build(200, "查询会员权益成功", pageInfo);
     }

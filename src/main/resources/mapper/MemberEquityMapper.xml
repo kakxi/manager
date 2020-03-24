@@ -108,12 +108,16 @@
   </update>
 
   <!--查询所有会员-->
-  <select id="queryAllMember" resultType="xft.abscloud.manager.dto.MemberEquityDto">
+  <select id="queryAllMember" parameterType="java.lang.String" resultType="xft.abscloud.manager.dto.MemberEquityDto">
     select
       u.id as memberId,
       u.account_name as accountName,
       u.member_level as levelName
       from abs_member_user u
+      where 1=1
+    <if test="accountName != null and accountName!=''">
+      AND u.account_name like '%${accountName}%'
+    </if>
     ORDER BY u.create_time DESC
   </select>
 

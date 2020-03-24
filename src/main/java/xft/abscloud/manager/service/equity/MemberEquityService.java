@@ -35,9 +35,10 @@ public interface MemberEquityService {
      * 查询会员权益
      * @param pageNum
      * @param pageSize
+     * @param accountName
      * @return
      */
-    public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize);
+    public PageInfo<MemberEquityDto> queryMemberEquityPage(Integer pageNum, Integer pageSize, String accountName);
 
     public void updateMemberEquity(MemberEquityDto memberEquityDto);
 }

@@ -32,7 +32,7 @@ public interface MemberEquityMapper extends MyMapper<MemberEquity> {
 
     MemberEquity query(Integer id);
 
-    public List<MemberEquityDto> queryAllMember();
+    public List<MemberEquityDto> queryAllMember(@Param("accountName") String accountName);
 
     /**
      * 删除会员权益
