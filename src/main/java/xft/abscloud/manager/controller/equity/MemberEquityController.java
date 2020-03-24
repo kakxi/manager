@@ -117,7 +117,7 @@ public class MemberEquityController {
      * @return
      */
     @RequestMapping("/updateMemberEquity")
-    public @ResponseBody JsonResult updateMemberEquity(MemberEquityDto memberEquityDto){
+    public @ResponseBody JsonResult updateMemberEquity(@RequestBody MemberEquityDto memberEquityDto){
 
         try {
             memberEquityService.updateMemberEquity(memberEquityDto);

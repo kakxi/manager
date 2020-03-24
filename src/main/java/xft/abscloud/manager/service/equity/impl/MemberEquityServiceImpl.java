@@ -133,8 +133,11 @@ public class MemberEquityServiceImpl implements MemberEquityService {
         String memberId = memberEquityDto.getMemberId();
         //先删除
         memberEquityMapper.deleteMemberEquityById(memberId);
+        List<MemberEquity> memberEquityList = memberEquityDto.getMemberEquityList();
+        if(memberEquityList.size()>0 || memberEquityList != null){
+            //再插入
+            memberEquityMapper.insertForeach(memberEquityList);
+        }
 
-        //再插入
-        memberEquityMapper.insertForeach(memberEquityDto.getMemberEquityList());
     }
 }
