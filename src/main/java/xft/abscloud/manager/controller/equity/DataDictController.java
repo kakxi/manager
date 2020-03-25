@@ -124,12 +124,4 @@ public class DataDictController {
 			return JsonResult.errorMsg("系统错误");
 		}
 	}
-
-	@RequestMapping("/queryModelList")
-	public @ResponseBody JsonResult queryModelList(){
-
-		List<Map<String, String>> data = dataDictService.queryModelList();
-
-		return JsonResult.ok(data);
-	}
 }

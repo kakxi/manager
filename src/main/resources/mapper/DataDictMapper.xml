@@ -77,13 +77,4 @@
 	     delete from abs_data_dict where id = #{id} and dict_key = #{dictKey}
 	</delete>
 
-	<!-- 查询功能模块 -->
-	<select id="queryModelList" resultType="java.util.Map">
-		select
-			dict_key as dictKey,
-			dict_value as dictValue
-		from abs_data_dict
-			WHERE id = 'model_type'
-	</select>
-  
 </mapper>

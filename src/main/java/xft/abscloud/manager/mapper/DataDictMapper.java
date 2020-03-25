@@ -26,9 +26,4 @@ public interface DataDictMapper extends MyMapper<DataDict> {
     
     int deleteDict(DataDict dataDict);
 
-    /**
-     * 查询功能模块
-     * @return
-     */
-    public List<Map<String,String>> queryModelList();
 }
