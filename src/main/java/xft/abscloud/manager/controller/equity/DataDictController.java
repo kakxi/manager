@@ -3,10 +3,7 @@ package xft.abscloud.manager.controller.equity;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.pojo.DataDict;
 import xft.abscloud.manager.service.equity.DataDictService;
@@ -126,5 +123,13 @@ public class DataDictController {
 			log.error(e.getMessage());
 			return JsonResult.errorMsg("系统错误");
 		}
+	}
+
+	@RequestMapping("/queryModelList")
+	public @ResponseBody JsonResult queryModelList(){
+
+		List<Map<String, String>> data = dataDictService.queryModelList();
+
+		return JsonResult.ok(data);
 	}
 }

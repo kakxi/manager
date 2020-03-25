@@ -29,6 +29,12 @@ public class DataDictServiceImpl implements DataDictService {
 	}
 
 	@Override
+	public List<Map<String, String>> queryModelList() {
+
+		return dataDictMapper.queryModelList();
+	}
+
+	@Override
 	public DataDict queryDict(DataDict dataDict) {
 		return dataDictMapper.queryDict(dataDict);
 	}

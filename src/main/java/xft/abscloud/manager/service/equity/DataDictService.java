@@ -28,4 +28,6 @@ public interface DataDictService {
 	 * @return
 	 */
 	List<Map<String, String>> queryDictByKeys(List<String> ids);
+
+    public List<Map<String,String>> queryModelList();
 }
