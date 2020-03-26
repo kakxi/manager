@@ -59,9 +59,10 @@ public class VoucherServiceImpl implements IVoucherService{
 			
 			//添加消费记录
 			orderService.addExpense(orderId);
-			
-			//添加其他业务 TODO  
-			//会员表插入一条记录等等
+			//添加会员权益
+			orderService.addMemberEquity(orderId);
+
+			//支付完成 发送通知 TODO
 		}
 	}
 
@@ -72,14 +73,7 @@ public class VoucherServiceImpl implements IVoucherService{
 	public List<AbsVoucher> queryCurrentUserVoucher(String userId) {
 		
 		List<AbsVoucher> voucherList = absVoucherMapper.queryCurrentUserVoucher(userId);
-//		if(voucherList !=null && voucherList.size()>0) {
-//			for(AbsVoucher voucher : voucherList) {
-//				String applyStatus = voucher.getApplyStatus();
-//				String newApplyStatus = this.transferApplyStatus(applyStatus);
-//				voucher.setApplyStatus(newApplyStatus);
-//			}
-//		}
-		
+
 		return voucherList;
 	}
 
@@ -105,27 +99,6 @@ public class VoucherServiceImpl implements IVoucherService{
 	}
 	
 	
-//	private String transferApplyStatus(String applyStatus) {
-//		String str = null;
-//		if(!StringUtils.isEmpty(applyStatus)) {
-//			switch (applyStatus) {
-//			case "0":
-//				str = ApplyEnum.UN_APPLY.getValue();
-//				break;
-//			case "1":
-//				str = ApplyEnum.APPLY.getValue();
-//				break;
-//			case "2":
-//				str =  ApplyEnum.REFUSED.getValue();
-//				break;
-//			default: 
-//				str = ApplyEnum.UN_APPLY.getValue();
-//				break;
-//			}
-//		}
-//		return str;
-//	}
-
 	/**
 	 * 根据订单号查询凭证
 	 */

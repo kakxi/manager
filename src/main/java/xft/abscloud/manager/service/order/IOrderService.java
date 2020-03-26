@@ -1,7 +1,6 @@
 package xft.abscloud.manager.service.order;
 
 import xft.abscloud.manager.pojo.AbsOrder;
-import xft.abscloud.manager.util.OrderUtil;
 
 import java.util.List;
 
@@ -63,10 +62,15 @@ public interface IOrderService {
 
 	/**
 	 * 查询可以开发票的订单
-	 * @param object
+	 * @param userId
 	 * @param orderId
 	 * @return
 	 */
 	public List<AbsOrder> queryOrderByfp(String userId, String orderId);
-	
+
+	/**
+	 * 根据订单id添加权益
+	 * @param orderId
+	 */
+	public void addMemberEquity(String orderId);
 }

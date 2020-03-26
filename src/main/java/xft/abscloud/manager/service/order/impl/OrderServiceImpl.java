@@ -1,5 +1,6 @@
 package xft.abscloud.manager.service.order.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -10,11 +11,15 @@ import xft.abscloud.manager.enums.PayTypeEnum;
 import xft.abscloud.manager.mapper.AbsOrderMapper;
 import xft.abscloud.manager.pojo.AbsExpense;
 import xft.abscloud.manager.pojo.AbsOrder;
+import xft.abscloud.manager.pojo.MemberEquity;
+import xft.abscloud.manager.service.equity.LevelEquityService;
+import xft.abscloud.manager.service.equity.MemberEquityService;
 import xft.abscloud.manager.service.order.IExpenseService;
 import xft.abscloud.manager.service.order.IOrderService;
 import xft.abscloud.manager.util.OrderUtil;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements IOrderService{
@@ -24,6 +29,12 @@ public class OrderServiceImpl implements IOrderService{
 	
 	@Autowired
 	private IExpenseService expenseService;
+
+	@Autowired
+	private LevelEquityService levelEquityService;
+
+	@Autowired
+	private MemberEquityService memberEquityService;
 	/**
 	 * 创建订单
 	 */
@@ -46,23 +57,9 @@ public class OrderServiceImpl implements IOrderService{
 	public List<AbsOrder> queryOderList(String userId, String orderId, String orderStatus) {
 		
 		List<AbsOrder> orderList =  absOrderMapper.queryOrderList(userId, orderId, orderStatus);
-//		this.checkList(orderList);
 		return orderList;
 	}
 	
-//	public void checkList(List<AbsOrder> orderList) {
-//		if(orderList !=null && orderList.size()>0) {
-//			for(AbsOrder absOrder : orderList) {
-//				String orderStatus1 = absOrder.getOrderStatus();
-//				String newOrderStatus = transferOrderStatus(orderStatus1);
-//				absOrder.setOrderStatus(newOrderStatus);
-//				String payType = absOrder.getPayType();
-//				String newPayType = OrderUtil.transferPayType(payType);
-//				absOrder.setPayType(newPayType);
-//			}
-//		}
-//	}
-
 	/**
 	 * 更新订单支付状态
 	 */
@@ -117,10 +114,31 @@ public class OrderServiceImpl implements IOrderService{
 		//添加消费记录
 		this.addExpense(orderId);
 
-		//添加其他业务 TODO  
-		//会员表插入一条记录等等
+		//添加会员权益
+		this.addMemberEquity(orderId);
+
+		//支付完成 发送通知 TODO
 	}
-	
+
+	@Override
+	public void addMemberEquity(String orderId){
+
+		AbsOrder absOrder = absOrderMapper.queryOrderById(orderId);
+		//TODO 插入会员记录
+		String memberId = null;
+		//会员等级Id
+		String gradeId = absOrder.getmGradeId();
+		//查询套餐权益
+		List<Map<String, Object>> map = levelEquityService.query(gradeId);
+		if(map.size()>0){
+			for(Map<String, Object> m : map){
+				MemberEquity memberEquity = BeanUtil.mapToBean(m,MemberEquity.class,true);
+				memberEquity.setMemberId(memberId);
+
+				memberEquityService.add(memberEquity);
+			}
+		}
+	}
 	/**
 	 * 添加消费记录
 	 * @param orderId
@@ -141,27 +159,6 @@ public class OrderServiceImpl implements IOrderService{
 		absExpense.setPayResult(PayResultEnum.FINISHED.getKey());
 		expenseService.addAbsExpense(absExpense);
 	}
-
-//	private String transferOrderStatus(String orderStatus) {
-//		String str = null;
-//		if(!StringUtils.isEmpty(orderStatus)) {
-//			switch (orderStatus) {
-//			case "0":
-//				str = OrderStatusEnum.UN_PAY.getValue();
-//				break;
-//			case "1":
-//				str = OrderStatusEnum.PAY.getValue();
-//				break;
-//			case "2":
-//				str =  OrderStatusEnum.CANCEL.getValue();
-//				break;
-//			default: 
-//				str = OrderStatusEnum.UN_PAY.getValue();
-//				break;
-//			}
-//		}
-//		return str;
-//	}
 
 	/**
 	 * 查询可以开发票的订单

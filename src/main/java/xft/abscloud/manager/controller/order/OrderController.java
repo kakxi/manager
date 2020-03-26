@@ -1,29 +1,12 @@
 package xft.abscloud.manager.controller.order;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import xft.abscloud.manager.config.PayProperties;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.enums.OrderStatusEnum;
@@ -32,6 +15,16 @@ import xft.abscloud.manager.pojo.AbsOrder;
 import xft.abscloud.manager.service.order.IOrderService;
 import xft.abscloud.manager.util.HttpUtil;
 import xft.abscloud.manager.util.QRCodeUtils;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 订单
@@ -254,7 +247,7 @@ public class OrderController {
 	
 	/**
 	 * 微信回调通知
-	 * @param orderId
+	 * @param param
 	 * @return
 	 */
 	@PostMapping("/absPayCallBack")
