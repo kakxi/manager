@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xft.abscloud.manager.mapper.EnterprRegUserMapper" >
+  <resultMap id="BaseResultMap" type="xft.abscloud.manager.pojo.EnterprRegUser" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="enterprise_email" property="enterpriseEmail" jdbcType="VARCHAR" />
+    <result column="enterprise_account_name" property="enterpriseAccountName" jdbcType="VARCHAR" />
+    <result column="enterprise_password" property="enterprisePassword" jdbcType="VARCHAR" />
+    <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="enterprise_phone" property="enterprisePhone" jdbcType="VARCHAR" />
+    <result column="enterprise_address" property="enterpriseAddress" jdbcType="VARCHAR" />
+    <result column="enterprise_code" property="enterpriseCode" jdbcType="VARCHAR" />
+    <result column="suffix_status" property="suffixStatus" jdbcType="VARCHAR" />
+    <result column="active_status" property="activeStatus" jdbcType="VARCHAR" />
+    <result column="active_code" property="activeCode" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="orgid" property="orgid" jdbcType="INTEGER" />
+    <result column="user_status" property="userStatus" jdbcType="CHAR" />
+    <result column="usertype" property="usertype" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+    <result column="modify_password" property="modifyPassword" jdbcType="CHAR" />
+    <result column="ecode_update_time" property="ecodeUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="platform_id" property="platformId" jdbcType="VARCHAR" />
+    <result column="enterprise_dep" property="enterpriseDep" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="contact_wechat" property="contactWechat" jdbcType="VARCHAR" />
+    <result column="user_reg_type" property="userRegType" jdbcType="INTEGER" />
+    <result column="referee" property="referee" jdbcType="VARCHAR" />
+    <result column="related_xj" property="relatedXj" jdbcType="CHAR" />
+    <result column="xj_account" property="xjAccount" jdbcType="VARCHAR" />
+    <result column="bind_org_source" property="bindOrgSource" jdbcType="INTEGER" />
+    <result column="org_bind_time" property="orgBindTime" jdbcType="TIMESTAMP" />
+    <result column="synchron_time" property="synchronTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
