@@ -2,7 +2,6 @@ package xft.abscloud.manager.service.equity.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,14 +12,12 @@ import xft.abscloud.manager.exception.BusinessException;
 import xft.abscloud.manager.mapper.EventMapper;
 import xft.abscloud.manager.mapper.MemberEquityMapper;
 import xft.abscloud.manager.pojo.Event;
-import xft.abscloud.manager.pojo.MemberEquity;
 import xft.abscloud.manager.service.equity.EquitySpendService;
 import xft.abscloud.manager.service.equity.EventService;
 import xft.abscloud.manager.service.equity.MemberEquityService;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -99,8 +96,9 @@ public class EventServiceImpl implements EventService {
             // 给会员发送通知
             // TODO
             return result;
+        }else{
+            throw new BusinessException("将此活动限定权益设定为是才可发布！");
         }
-        return 0;
     }
 
     // 取消活动
