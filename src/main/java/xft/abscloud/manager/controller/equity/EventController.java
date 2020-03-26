@@ -1,21 +1,9 @@
 package xft.abscloud.manager.controller.equity;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.github.pagehelper.PageInfo;
-
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.exception.BusinessException;
 import xft.abscloud.manager.pojo.EquitySpend;
@@ -24,6 +12,11 @@ import xft.abscloud.manager.pojo.EventSignin;
 import xft.abscloud.manager.service.equity.EquitySpendService;
 import xft.abscloud.manager.service.equity.EventService;
 import xft.abscloud.manager.service.equity.EventSigninService;
+
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -148,7 +141,7 @@ public class EventController {
             Event event = BeanUtil.mapToBean(params, Event.class, true);
             // equity.setState("1");
             PageInfo<Event> result = eventService.queryPage(event, pageNum, pageSize);
-            return JsonResult.ok(result.getList());
+            return JsonResult.ok(result);
         } catch (Exception e) {
             log.error(e.getMessage());
             return JsonResult.errorMsg("查询异常");
