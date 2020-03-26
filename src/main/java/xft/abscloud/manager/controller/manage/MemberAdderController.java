@@ -10,6 +10,7 @@ import xft.abscloud.manager.service.manage.MemberAdderService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author zhangkan
@@ -23,10 +24,21 @@ public class MemberAdderController {
     private MemberAdderService memberAdderService;
 
     @RequestMapping("/queryAddress")
-    public JsonResult queryAddress(@RequestBody Object key) throws IOException {
+    public JsonResult queryAddress(@RequestBody AbsMemberAdder record) throws IOException {
         try {
-            memberAdderService.queryByKey(key);
-            return JsonResult.okMsg("查询成功");
+            AbsMemberAdder asMemberAdder=memberAdderService.queryByKey(record.getId());
+            return JsonResult.ok(asMemberAdder);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return JsonResult.errorMsg("系统错误");
+        }
+    }
+
+    @RequestMapping("/queryAddressList")
+    public JsonResult queryAddressList(@RequestBody AbsMemberAdder record) throws IOException {
+        try {
+            List<AbsMemberAdder> list=memberAdderService.queryList(record);
+            return JsonResult.ok(list);
         } catch (Exception e) {
             log.error(e.getMessage());
             return JsonResult.errorMsg("系统错误");

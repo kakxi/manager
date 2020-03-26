@@ -27,10 +27,10 @@ public class MemberLevelController {
     private MemberLevelService memberLevelService;
 
     @RequestMapping("/queryLevel")
-    public JsonResult queryLevel(@RequestBody Object key) throws IOException {
+    public JsonResult queryLevel(@RequestBody AbsMemberLevel record) throws IOException {
         try {
-            memberLevelService.queryByKey(key);
-            return JsonResult.okMsg("查询成功");
+            AbsMemberLevel absMemberLevel=memberLevelService.queryByKey(record.getId());
+            return JsonResult.ok(absMemberLevel);
         } catch (Exception e) {
             log.error(e.getMessage());
             return JsonResult.errorMsg("系统错误");

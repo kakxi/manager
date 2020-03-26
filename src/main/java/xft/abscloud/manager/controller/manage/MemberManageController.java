@@ -10,6 +10,7 @@ import xft.abscloud.manager.service.manage.MemberManageService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author zhangkan
@@ -19,15 +20,26 @@ import java.io.IOException;
 @Slf4j
 @RequestMapping("/manage")
 public class MemberManageController {
-    
+
     @Resource
     private MemberManageService memberManageService;
 
     @RequestMapping("/queryMember")
-    public JsonResult queryMember(@RequestBody Object key) throws IOException {
+    public JsonResult queryMember(@RequestBody AbsMemberUser record) throws IOException {
         try {
-            memberManageService.queryByKey(key);
+            memberManageService.queryByKey(record.getId());
             return JsonResult.okMsg("查询成功");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return JsonResult.errorMsg("系统错误");
+        }
+    }
+
+    @RequestMapping("/queryMemberList")
+    public JsonResult queryMemberList(@RequestBody AbsMemberUser record) throws IOException {
+        try {
+            List<AbsMemberUser> list = memberManageService.queryList(record);
+            return JsonResult.ok(list);
         } catch (Exception e) {
             log.error(e.getMessage());
             return JsonResult.errorMsg("系统错误");

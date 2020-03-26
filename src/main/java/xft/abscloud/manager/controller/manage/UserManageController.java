@@ -3,6 +3,7 @@ package xft.abscloud.manager.controller.manage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xft.abscloud.manager.dto.JsonResult;
 import xft.abscloud.manager.pojo.EnterprRegUser;
@@ -10,6 +11,7 @@ import xft.abscloud.manager.service.manage.UserManageService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author zhangkan
@@ -24,10 +26,21 @@ public class UserManageController {
     private UserManageService userManageService;
 
     @RequestMapping("/queryUser")
-    public JsonResult queryUser(@RequestBody Object key) throws IOException {
+    public JsonResult queryUser(@RequestBody EnterprRegUser record) throws IOException {
         try {
-            userManageService.queryByKey(key);
-            return JsonResult.okMsg("查询成功");
+            EnterprRegUser enterprRegUser=userManageService.queryByKey(record.getUserId());
+            return JsonResult.ok(enterprRegUser);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return JsonResult.errorMsg("系统错误");
+        }
+    }
+
+    @RequestMapping("/queryUserList")
+    public JsonResult queryUserList(@RequestBody EnterprRegUser record) throws IOException {
+        try {
+            List<EnterprRegUser> list =userManageService.queryList(record);
+            return JsonResult.ok(list);
         } catch (Exception e) {
             log.error(e.getMessage());
             return JsonResult.errorMsg("系统错误");
